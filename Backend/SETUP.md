@@ -1,6 +1,6 @@
 # CraftBazaar — Backend Setup Guide
 
-## 📁 Struktur Folder
+## Struktur Folder
 
 ```
 Project-Responsi-Prak-Pemweb/
@@ -21,7 +21,7 @@ Project-Responsi-Prak-Pemweb/
 
 ---
 
-## ⚙️ Setup di Ubuntu + Nginx
+## Setup di Ubuntu + Nginx
 
 ### 1. Install MySQL & buat database
 
@@ -67,7 +67,7 @@ location ~ \.php$ {
 
 ---
 
-## 🧪 Test Akun Seed Data
+## Test Akun Seed Data
 
 | Username      | Password     | Role   |
 |---------------|-------------|--------|
@@ -77,12 +77,12 @@ location ~ \.php$ {
 | notch_fan     | password    | buyer  |
 | herobrine99   | password    | buyer  |
 
-> ⚠️ Hash di schema.sql menggunakan password `password` (Laravel default hash).
+> Hash di schema.sql menggunakan password `password` (Laravel default hash).
 > Untuk password lain, jalankan `/generate_hash.php?p=passwordbaru` lalu update manual di DB.
 
 ---
 
-## 🔌 Cara Pakai Auth Helper
+## Cara Pakai Auth Helper
 
 ```php
 <?php
@@ -107,7 +107,7 @@ if (isSeller()) { ... }
 
 ---
 
-## ✅ Checklist BE-01 & BE-02
+## Checklist BE-01 & BE-02
 
 - [x] Create database
 - [x] Create users table
