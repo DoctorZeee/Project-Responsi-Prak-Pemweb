@@ -1,0 +1,29 @@
+# ============================================================
+# CraftBazaar — .gitignore
+# ============================================================
+
+# ENV files
+.env
+
+# Upload files (gambar item, dll)
+uploads/items/*
+!uploads/items/.gitkeep
+
+# PHP cache & logs
+*.log
+*.cache
+/logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Tools
+generate_hash.php
