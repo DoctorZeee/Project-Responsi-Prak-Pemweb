@@ -131,32 +131,32 @@ CREATE TABLE IF NOT EXISTS reviews (
 -- ============================================================
 -- SEED DATA — Categories
 -- ============================================================
-INSERT INTO categories (name, slug, icon) VALUES
-    ('Skin',          'skin',          '👤'),
-    ('Resource Pack', 'resource-pack', '🎨'),
-    ('Tools',         'tools',         '⛏️'),
-    ('Armor',         'armor',         '🛡️'),
-    ('Weapon',        'weapon',        '⚔️'),
-    ('Building',      'building',      '🏗️'),
-    ('Food',          'food',          '🍎'),
-    ('Mob',           'mob',           '👾');
+INSERT INTO categories (name, slug) VALUES
+    ('Skin',          'skin'          ),
+    ('Resource Pack', 'resource-pack' ),
+    ('Tools',         'tools'         ),
+    ('Armor',         'armor'         ),
+    ('Weapon',        'weapon'        ),
+    ('Building',      'building'      ),
+    ('Food',          'food'          ),
+    ('Mob',           'mob'           );
 
 -- ============================================================
--- SEED DATA — Admin User (password: admin123)
+-- SEED DATA — Admin User (password: password)
 -- ============================================================
 INSERT INTO users (username, email, password, role) VALUES
-    ('admin', 'admin@craftbazaar.com', '$2y$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin');
+    ('admin', 'admin@craftbazaar.com', '$2y$12$BQ6RvtsTs9bS.eG22VuAyOINCLulPRzvJ/qtdWQ2Jc5CR4dd02y0G', 'admin');
 
 -- ============================================================
 -- SEED DATA — Dummy Seller & Buyers
--- password semua: password123
--- hash: $2y$12$... (generate ulang pakai generate_hash.php)
+-- password semua: password
+-- hash: $2y$12$BQ6RvtsTs9bS.eG22VuAyOINCLulPRzvJ/qtdWQ2Jc5CR4dd02y0G
 -- ============================================================
 INSERT INTO users (username, email, password, role, balance) VALUES
-    ('steve_builder', 'steve@craftbazaar.com', '$2y$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'seller', 0),
-    ('alex_crafter',  'alex@craftbazaar.com',  '$2y$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'seller', 0),
-    ('notch_fan',     'notch@craftbazaar.com', '$2y$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'buyer',  500000),
-    ('herobrine99',   'hero@craftbazaar.com',  '$2y$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'buyer',  250000);
+    ('steve_builder', 'steve@craftbazaar.com', '$2y$12$BQ6RvtsTs9bS.eG22VuAyOINCLulPRzvJ/qtdWQ2Jc5CR4dd02y0G', 'seller', 0),
+    ('alex_crafter',  'alex@craftbazaar.com',  '$2y$12$BQ6RvtsTs9bS.eG22VuAyOINCLulPRzvJ/qtdWQ2Jc5CR4dd02y0G', 'seller', 0),
+    ('notch_fan',     'notch@craftbazaar.com', '$2y$12$BQ6RvtsTs9bS.eG22VuAyOINCLulPRzvJ/qtdWQ2Jc5CR4dd02y0G', 'buyer',  500000),
+    ('herobrine99',   'hero@craftbazaar.com',  '$2y$12$BQ6RvtsTs9bS.eG22VuAyOINCLulPRzvJ/qtdWQ2Jc5CR4dd02y0G', 'buyer',  250000);
 
 -- ============================================================
 -- SEED DATA — Dummy Items
