@@ -1,0 +1,266 @@
+:root {
+  /* Core Palette */
+  --obsidian:    #0a0a0f;
+  --void:        #0d0d14;
+  --panel:       #12141f;
+  --surface:     #181b2a;
+  --card:        #1e2235;
+  --border:      #252840;
+  --border-lit:  #2e3354;
+
+  /* Greens (Minecraft accent) */
+  --grass:       #4ade80;
+  --grass-dim:   #22c55e;
+  --grass-glow:  rgba(74,222,128,0.15);
+  --grass-deep:  #16a34a;
+
+  /* Rarity Colors */
+  --common:      #94a3b8;
+  --uncommon:    #4ade80;
+  --rare:        #60a5fa;
+  --epic:        #c084fc;
+  --legendary:   #fbbf24;
+  --legendary-glow: rgba(251,191,36,0.25);
+
+  /* Text */
+  --text-1:  #f0f4ff;
+  --text-2:  #8892b0;
+  --text-3:  #4a5568;
+
+  /* Status */
+  --success: #4ade80;
+  --warning: #fbbf24;
+  --danger:  #f87171;
+  --info:    #60a5fa;
+
+  /* Fonts */
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-ui:    'Space Grotesk', sans-serif;
+  --font-mono:  'JetBrains Mono', monospace;
+}
+
+/* ======================================================
+   GLOBAL COMPONENTS
+   ====================================================== */
+
+/* Navbar */
+.nav {
+  width: 100%;
+  height: 64px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+  gap: 32px;
+  position: relative;
+  z-index: 10;
+}
+.nav-logo {
+  font-family: var(--font-pixel);
+  font-size: 13px;
+  color: var(--grass);
+  letter-spacing: -0.5px;
+  text-shadow: 0 0 20px var(--grass-glow);
+  white-space: nowrap;
+}
+.nav-logo span { color: var(--legendary); }
+.nav-links {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+  margin-left: 24px;
+}
+.nav-link {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-2);
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all .2s;
+  border: 1px solid transparent;
+}
+.nav-link.active, .nav-link:hover {
+  color: var(--grass);
+  background: var(--grass-glow);
+  border-color: rgba(74,222,128,0.2);
+}
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+.nav-balance {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--legendary);
+  background: rgba(251,191,36,0.08);
+  border: 1px solid rgba(251,191,36,0.2);
+  padding: 5px 12px;
+  border-radius: 6px;
+}
+.nav-avatar {
+  width: 36px; height: 36px;
+  background: var(--surface);
+  border: 2px solid var(--grass);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+.btn {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  transition: all .2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--grass);
+  color: #000;
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--grass);
+  border: 1px solid var(--grass);
+}
+.btn-ghost {
+  background: var(--surface);
+  color: var(--text-2);
+  border: 1px solid var(--border);
+}
+.btn-danger {
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+.btn-sm { font-size: 11px; padding: 5px 12px; border-radius: 6px; }
+
+/* Rarity Badges */
+.badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid;
+}
+.badge-common    { color: var(--common);    border-color: #475569; background: rgba(148,163,184,.1); }
+.badge-uncommon  { color: var(--uncommon);  border-color: #166534; background: rgba(74,222,128,.08); }
+.badge-rare      { color: var(--rare);      border-color: #1e40af; background: rgba(96,165,250,.08); }
+.badge-epic      { color: var(--epic);      border-color: #6b21a8; background: rgba(192,132,252,.08); }
+.badge-legendary {
+  color: var(--legendary);
+  border-color: #92400e;
+  background: rgba(251,191,36,.08);
+  box-shadow: 0 0 8px rgba(251,191,36,.2);
+}
+
+/* Item Card */
+.item-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all .25s;
+  position: relative;
+}
+.item-card:hover { border-color: var(--grass); transform: translateY(-2px); }
+.item-card.legendary { border-color: rgba(251,191,36,.4); box-shadow: 0 0 16px rgba(251,191,36,.12); }
+.item-card.epic { border-color: rgba(192,132,252,.4); }
+.item-card.rare { border-color: rgba(96,165,250,.3); }
+.item-img {
+  width: 100%; height: 140px;
+  background: var(--surface);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 52px;
+  position: relative;
+  overflow: hidden;
+}
+.item-img-bg {
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 8px, rgba(255,255,255,.02) 8px, rgba(255,255,255,.02) 9px
+  ),
+  repeating-linear-gradient(
+    90deg, transparent, transparent 8px, rgba(255,255,255,.02) 8px, rgba(255,255,255,.02) 9px
+  );
+}
+.item-body { padding: 12px 14px; }
+.item-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-1);
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.item-seller { font-size: 11px; color: var(--text-3); margin-bottom: 8px; }
+.item-footer {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.item-price {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--grass);
+}
+.item-price span { font-size: 10px; color: var(--text-3); font-weight: 400; }
+
+/* Stars */
+.stars { color: var(--legendary); font-size: 11px; letter-spacing: -1px; }
+
+/* Input */
+.inp {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--text-1);
+  outline: none;
+}
+.inp:focus { border-color: var(--grass); }
+.inp::placeholder { color: var(--text-3); }
+.inp-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .5px;
+  color: var(--text-2);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+/* --- Custom Component: Outer Panel Highlight --- */
+.auth-outer-panel {
+  box-sizing: border-box;
+  
+  /* Posisi & Ukuran dari Figma kamu */
+  position: absolute;
+  width: 494px;
+  height: 765px;
+  left: 919px;
+  top: 54px;
+  
+  /* Implementasi Stroke Baru yang Kamu Buat */
+  border: 2px solid var(--rare); /* Menggantikan #60A5FA menggunakan Design Token */
+  border-radius: 68px;
+  
+  /* Tambahan: Supaya background di dalam kotak tidak bolong */
+  background-color: var(--panel); 
+}
