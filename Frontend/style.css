@@ -25,59 +25,101 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Space Grotesk', sans-serif;
 }
 
 body {
     background-color: var(--bg-main);
     color: var(--color-text-white);
-    min-height: 100vh;
-    overflow-x: hidden;
+    font-family: 'Space Grotesk', sans-serif;
+    -webkit-font-smoothing: antialiased;
 }
 
 /* ==========================================================================
-   2. NAVBAR UTAMA COMPONENT
+   2. REUSABLE ATOMS & UTILITIES (Badge, Button, Input)
+   ========================================================================== */
+.mono-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: #0A0A0F;
+    border: none;
+    padding: 10px 20px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.btn-primary:hover {
+    background-color: var(--color-primary-hover);
+    box-shadow: 0 0 12px rgba(74, 222, 128, 0.3);
+}
+
+.btn-secondary {
+    background-color: var(--bg-card);
+    color: var(--color-text-silver);
+    border: 1px solid var(--border-color);
+    padding: 10px 20px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.btn-secondary:hover {
+    color: var(--color-text-white);
+    border-color: var(--color-text-silver);
+}
+
+/* ==========================================================================
+   3. GLOBAL NAVBAR COMPONENT
    ========================================================================== */
 .main-navbar {
-    width: 100%;
     height: 64px;
-    background: var(--bg-panel);
+    background-color: var(--bg-panel);
     border-bottom: 1px solid var(--border-color);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 40px;
+    padding: 0 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .nav-logo {
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--color-text-white);
     display: flex;
     align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 13px;
-    letter-spacing: 1px;
 }
 
 .nav-links {
     display: flex;
-    gap: 16px;
+    gap: 24px;
 }
-
 .nav-links a {
     color: var(--color-text-silver);
     text-decoration: none;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
-    padding: 6px 12px;
-    border-radius: 6px;
-    transition: all 0.2s;
+    transition: color 0.2s;
 }
-
-.nav-links a.active {
+.nav-links a:hover, .nav-links a.active {
     color: var(--color-primary);
-    background: var(--color-primary-glow);
-    border: 1px solid rgba(74, 222, 128, 0.2);
 }
 
 .nav-user-zone {
@@ -86,554 +128,191 @@ body {
     gap: 16px;
 }
 
-/* ==========================================================================
-   3. AUTH SPLIT LAYOUT (SIGNIN & REGIST)
-   ========================================================================== */
-.auth-container {
-    display: flex;
-    min-height: 100vh;
-    width: 100vw;
-}
-
-.auth-banner {
-    flex: 1.2;
-    background: var(--bg-panel);
-    border-right: 1px solid var(--border-color);
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-    background-image: 
-        linear-gradient(180deg, rgba(74, 222, 128, 0.01) 2px, transparent 2px),
-        linear-gradient(90deg, rgba(74, 222, 128, 0.01) 2px, transparent 2px);
-    background-size: 32px 32px;
-}
-
-.auth-form-side {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 60px;
-    max-width: 540px;
-    margin: 0 auto;
-}
-
-.auth-header h1 {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 6px;
-}
-
-.auth-header p {
+.nav-cart-btn {
     color: var(--color-text-silver);
-    font-size: 13.5px;
-    margin-bottom: 28px;
-}
-
-.auth-header p span {
-    color: var(--color-primary);
+    font-size: 13px;
     cursor: pointer;
-    font-weight: 500;
-}
-
-/* ==========================================================================
-   4. FORMS, INPUTS & BUTTONS COMPONENT
-   ========================================================================== */
-.form-group {
-    margin-bottom: 18px;
-    width: 100%;
-}
-
-.form-label {
-    color: var(--color-text-silver);
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 8px;
-    display: block;
-}
-
-.input-wrapper {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    height: 44px;
     display: flex;
     align-items: center;
-    padding: 0 16px;
-}
-
-.input-wrapper input {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: var(--color-text-white);
-    font-size: 13.5px;
-}
-
-.form-row {
-    display: flex;
-    gap: 16px;
-}
-
-.role-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 12px;
-}
-
-.role-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 12px;
-    text-align: center;
-    cursor: pointer;
+    gap: 4px;
     transition: all 0.2s;
 }
-
-.role-card.active {
-    background: var(--color-primary-glow);
-    border-color: var(--color-primary);
-}
-
-.role-card.active .title { color: var(--color-primary); }
-
-.btn-submit {
-    width: 100%;
-    height: 46px;
-    background: var(--color-primary);
-    border-radius: 8px;
-    border: none;
-    color: #000;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.2s;
-    margin-top: 10px;
-}
-
-.btn-submit:hover { background: var(--color-primary-hover); }
-
-/* ==========================================================================
-   5. DASHBOARD LAYOUT (PROFILE HIERARCHY)
-   ========================================================================== */
-.dashboard-container {
-    display: flex;
-    min-height: calc(100vh - 64px);
-}
-
-.sidebar {
-    width: 240px;
-    background: var(--bg-panel);
-    border-right: 1px solid var(--border-color);
-    padding: 24px 16px;
-}
-
-.sidebar-profile {
-    text-align: center;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--border-color);
-    margin-bottom: 20px;
-}
-
-.menu-section-title {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--color-text-muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin: 16px 0 8px 8px;
-}
-
-.menu-item {
-    display: flex;
-    align-items: center;
-    padding: 10px 12px;
-    border-radius: 8px;
-    color: var(--color-text-silver);
-    font-size: 13.5px;
-    text-decoration: none;
-    margin-bottom: 4px;
-}
-
-.menu-item.active {
-    background: var(--color-primary-glow);
+.nav-cart-btn:hover {
     color: var(--color-primary);
-    font-weight: 500;
+    transform: scale(1.03);
 }
 
-.menu-item.danger { color: var(--color-text-error); }
-
-.main-content {
-    flex: 1;
-    padding: 40px;
-}
-
-.data-panel {
-    background: var(--bg-card-alt);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 24px;
-    margin-top: 24px;
-}
-
-.mono-badge {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    padding: 4px 8px;
-    border-radius: 4px;
-    background: rgba(74, 222, 128, 0.1);
-    color: var(--color-primary);
-    border: 1px solid rgba(74, 222, 128, 0.2);
-}
-/* ==========================================================================
-   ADDITIONAL COMPONENT: PROFILE BOX LAYOUT
-   ========================================================================== */
-.profile-dashboard-layout {
-    display: flex;
-    gap: 32px;
-    margin-top: 20px;
-    align-items: flex-start;
-}
-
-/* Sisi Kiri Kotak Foto Profil */
-.avatar-upload-container {
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-}
-
-.avatar-glow-preview {
-    width: 100%;
-    height: 140px;
-    background: radial-gradient(ellipse at center, rgba(74, 222, 128, 0.25) 0%, rgba(30, 34, 53, 0) 70%), var(--bg-card);
-    border: 1px solid #2E3354;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 48px;
-}
-
-.btn-upload-photo {
-    background: var(--color-primary);
-    color: #000;
-    border: none;
-    padding: 6px 14px;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-.btn-upload-photo:hover { background: var(--color-primary-hover); }
-
-/* Sisi Kanan Baris Data Grid */
-.profile-data-grid {
-    flex: 1;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-}
-
-.data-row-item {
-    display: flex;
-    align-items: center;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    padding: 10px 16px;
-    border-radius: 8px;
-    gap: 16px;
-}
-
-.data-row-item .info-tag {
-    min-width: 100px;
-    text-align: center;
-}
-
-.data-row-item .info-value {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: var(--color-text-silver);
-}
-
-/* Navbar Avatar Specific Wrapper */
 .nav-avatar-circle {
     width: 36px;
     height: 36px;
-    background: var(--bg-card);
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
-    border: 2px solid var(--color-primary);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 16px;
     cursor: pointer;
 }
-/* ==========================================================================
-   MARKETPLACE COMPONENT STYLES
-   ========================================================================== */
 
-/* Susunan Kolom Utama Marketplace: Kiri (Filter) | Kanan (Konten Produk) */
-.marketplace-layout {
+/* ==========================================================================
+   4. HOME-PROFILE COMPONENT STYLES
+   ========================================================================== */
+.profile-layout-container {
     display: grid;
-    grid-template-columns: 240px 1fr;
-    gap: 24px;
-    padding: 24px;
+    grid-template-columns: 280px 1fr;
+    gap: 32px;
+    padding: 32px 24px;
     max-width: 1400px;
     margin: 0 auto;
 }
 
-/* Sidebar Filter (Kiri) */
-.filter-sidebar {
-    background: #12141F;
-    border-right: 1px solid var(--border-color);
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-
-.filter-group {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.filter-title {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    color: var(--color-text-muted);
-}
-
-/* Kustom Checkbox & Radio Item Row */
-.filter-item-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 13px;
-    color: #8892B0;
-    cursor: pointer;
-}
-.filter-item-row input[type="checkbox"] {
-    accent-color: var(--color-primary);
-    width: 15px;
-    height: 15px;
-    cursor: pointer;
-}
-
-.rating-stars { color: #FBBF24; }
-.rarity-dot { width: 8px; height: 8px; border-radius: 2px; display: inline-block; }
-
-/* Filter Rentang Harga */
-.price-range-inputs {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #181B2A;
+.profile-sidebar {
+    background: var(--bg-panel);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 10px;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: fit-content;
 }
-.price-range-inputs input {
-    background: transparent;
-    border: none;
-    color: #F0F4FF;
+
+.profile-avatar-large {
+    width: 80px;
+    height: 80px;
+    background: var(--bg-card);
+    border: 2px solid var(--color-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 44px;
+    margin-bottom: 16px;
+}
+
+.profile-username {
+    color: var(--color-text-white);
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.profile-role {
+    color: var(--color-primary);
     font-family: 'JetBrains Mono', monospace;
     font-size: 12px;
-    width: 100%;
+    text-transform: uppercase;
 }
-.price-range-inputs input:focus { outline: none; }
 
-/* Sisi Konten Utama (Kanan) */
-.marketplace-main-content {
+.profile-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border-color);
+    margin: 20px 0;
+}
+
+.profile-info-stat {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+.profile-info-stat .stat-label { color: var(--color-text-muted); }
+.profile-info-stat .stat-value { color: var(--color-text-white); font-weight: 500; }
+
+.profile-main-content {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-/* Toolbar Atas: Pencarian & Dropdown Urutan */
-.marketplace-toolbar {
+.content-header-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+}
+
+.purchase-history-list {
+    display: flex;
+    flex-direction: column;
     gap: 16px;
 }
 
-.search-input-wrapper {
-    position: relative;
-    flex: 1;
-    max-width: 400px;
-}
-.search-input-wrapper span {
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #4A5568;
-}
-.search-input-wrapper input {
-    width: 100%;
-    background: #181B2A;
+.history-card {
+    background: var(--bg-card-alt);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 10px 12px 10px 38px;
-    color: #F0F4FF;
-    font-size: 13px;
-}
-
-.sort-select {
-    background: #181B2A;
-    border: 1px solid var(--border-color);
-    color: #F0F4FF;
-    border-radius: 8px;
-    padding: 8px 16px;
-    font-size: 13px;
-    outline: none;
-}
-
-/* Wadah Tag Filter Aktif */
-.active-tags-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-.active-tag {
-    background: rgba(74, 222, 128, 0.1);
-    border: 1px solid rgba(74, 222, 128, 0.2);
-    color: var(--color-primary);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    padding: 4px 12px;
-    border-radius: 20px;
+    border-radius: 12px;
+    padding: 16px;
     display: flex;
     align-items: center;
-    gap: 6px;
-    cursor: pointer;
-}
-
-/* GRID KARTU PRODUK (Otomatis Menyesuaikan Ukuran Layar) */
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 20px;
 }
 
-/* Desain Komponen Kartu Produk */
-.product-card {
-    background: #1E2235;
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-.product-card:hover {
-    transform: translateY(-4px);
-}
-
-/* Efek Berpijar Berdasarkan Tingkat Kelangkaan (Rarity Glow) */
-.product-card.legendary { border-color: rgba(251, 191, 36, 0.4); box-shadow: 0px 0px 16px rgba(251, 191, 36, 0.12); }
-.product-card.epic { border-color: rgba(192, 132, 252, 0.4); }
-.product-card.rare { border-color: rgba(96, 165, 250, 0.3); }
-
-/* Bagian Atas Kartu (Visual Emoji) */
-.card-visual-header {
-    height: 140px;
-    background: #181B2A;
+.item-visual-box {
+    width: 56px;
+    height: 56px;
+    background: var(--bg-card);
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 52px;
-    position: relative;
+    font-size: 28px;
 }
-.product-card.epic .card-visual-header { background: linear-gradient(159deg, #150D20 0%, #1A0D30 100%); }
-.product-card.rare .card-visual-header { background: linear-gradient(159deg, #0D1420 0%, #0D1A30 100%); }
 
-/* Informasi Detail Kartu */
-.card-body {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+.item-details {
     flex: 1;
-}
-.card-meta-row {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 4px;
+}
+.item-meta {
+    display: flex;
     align-items: center;
+    gap: 10px;
 }
-.card-title {
-    color: #F0F4FF;
-    font-size: 13px;
-    font-weight: 700;
-}
-.card-author {
-    color: #4A5568;
+.transaction-date {
+    color: var(--color-text-muted);
     font-size: 11px;
 }
-.card-footer-action {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: auto;
-    padding-top: 12px;
-}
-.card-price {
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--color-primary);
+.item-name {
+    color: var(--color-text-white);
+    font-size: 15px;
     font-weight: 700;
-    font-size: 14px;
+}
+.item-seller {
+    color: var(--color-text-silver);
+    font-size: 12px;
 }
 
-/* KOMPONEN PAGINATION */
-.pagination-container {
+.item-action-zone {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-end;
     gap: 8px;
-    margin-top: 24px;
-    padding: 16px 0;
 }
-.page-btn {
-    background: #181B2A;
-    border: 1px solid var(--border-color);
-    color: #8892B0;
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-size: 11px;
+.item-price-display {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--color-text-white);
     font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
+    font-size: 15px;
 }
-.page-btn.active {
-    background: var(--color-primary);
-    color: #000;
-    border-color: var(--color-primary);
+.status-tag.success {
+    color: var(--color-primary);
+    background: rgba(74, 222, 128, 0.1);
+    border: 1px solid rgba(74, 222, 128, 0.2);
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
 }
-.page-btn:hover:not(.active) {
-    border-color: var(--color-primary);
-    color: #F0F4FF;
-}
-/* ==========================================================================
-   CHECKOUT & SHOPPING CART COMPONENT STYLES
-   ========================================================================== */
 
-/* Induk Layout Utama: Kiri (Daftar Item) | Kanan (Ringkasan Pembayaran) */
+/* ==========================================================================
+   5. CHECKOUT & SHOPPING CART COMPONENT STYLES
+   ========================================================================== */
 .checkout-layout {
     display: grid;
     grid-template-columns: 1fr 360px;
@@ -656,18 +335,17 @@ body {
     margin-bottom: 8px;
 }
 .checkout-title-row h2 {
-    color: #F0F4FF;
+    color: var(--color-text-white);
     font-size: 20px;
     font-weight: 700;
 }
 .checkout-title-row .item-count {
-    color: #4A5568;
+    color: var(--color-text-muted);
     font-size: 14px;
 }
 
-/* Baris Item di Dalam Keranjang */
 .cart-item {
-    background: #1E2235;
+    background: var(--bg-card-alt);
     border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 16px;
@@ -679,7 +357,7 @@ body {
 .cart-item-visual {
     width: 72px;
     height: 72px;
-    background: #181B2A;
+    background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: 10px;
     display: flex;
@@ -694,18 +372,15 @@ body {
     gap: 4px;
     flex: 1;
 }
-
 .cart-item-title {
-    color: #F0F4FF;
+    color: var(--color-text-white);
     font-size: 14px;
     font-weight: 700;
 }
-
 .cart-item-author {
-    color: #4A5568;
+    color: var(--color-text-muted);
     font-size: 11px;
 }
-
 .cart-item-price {
     font-family: 'JetBrains Mono', monospace;
     color: var(--color-primary);
@@ -716,19 +391,18 @@ body {
 .cart-delete-btn {
     background: transparent;
     border: none;
-    color: #4A5568;
+    color: var(--color-text-muted);
     font-size: 18px;
     cursor: pointer;
     padding: 8px;
     transition: color 0.2s;
 }
 .cart-delete-btn:hover {
-    color: #EF4444;
+    color: var(--color-text-error);
 }
 
-/* Kotak Input Voucher / Promo */
 .promo-box {
-    background: #181B2A;
+    background: var(--bg-card);
     border: 1px solid rgba(74, 222, 128, 0.15);
     border-radius: 10px;
     padding: 12px 16px;
@@ -746,15 +420,14 @@ body {
 .promo-input-wrapper input {
     background: transparent;
     border: none;
-    color: #F0F4FF;
+    color: var(--color-text-white);
     font-size: 13px;
     width: 100%;
     outline: none;
 }
 
-/* Sidebar Ringkasan Pembayaran (Kanan) */
 .summary-sidebar {
-    background: #1E2235;
+    background: var(--bg-card-alt);
     border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 24px;
@@ -763,9 +436,8 @@ body {
     gap: 16px;
     height: fit-content;
 }
-
 .summary-sidebar h3 {
-    color: #F0F4FF;
+    color: var(--color-text-white);
     font-size: 15px;
     font-weight: 700;
     margin-bottom: 4px;
@@ -776,7 +448,7 @@ body {
     justify-content: space-between;
     align-items: center;
     font-size: 13px;
-    color: #8892B0;
+    color: var(--color-text-silver);
     padding-bottom: 12px;
     border-bottom: 1px solid rgba(37, 40, 64, 0.5);
 }
@@ -786,7 +458,7 @@ body {
 .summary-row.total-row {
     border-bottom: none;
     padding-top: 8px;
-    color: #F0F4FF;
+    color: var(--color-text-white);
     font-weight: 700;
     font-size: 15px;
 }
@@ -797,9 +469,8 @@ body {
     font-weight: 700;
 }
 
-/* Widget Info Saldo Dompet */
 .balance-status-box {
-    background: #181B2A;
+    background: var(--bg-card);
     border: 1px solid rgba(251, 191, 36, 0.2);
     border-radius: 8px;
     padding: 12px;
@@ -807,20 +478,14 @@ body {
     justify-content: space-between;
     align-items: center;
 }
-.balance-label {
-    color: #4A5568;
-    font-size: 11px;
-}
+.balance-label { color: var(--color-text-muted); font-size: 11px; }
 .balance-amount {
     font-family: 'JetBrains Mono', monospace;
-    color: #FBBF24;
+    color: var(--color-text-rare);
     font-size: 14px;
     font-weight: 700;
 }
-.status-badge-ok {
-    color: var(--color-primary);
-    font-size: 11px;
-}
+.status-badge-ok { color: var(--color-primary); font-size: 11px; }
 
 .balance-remainder-box {
     background: rgba(74, 222, 128, 0.06);
@@ -828,7 +493,7 @@ body {
     border-radius: 8px;
     padding: 10px 12px;
     font-size: 11px;
-    color: #8892B0;
+    color: var(--color-text-silver);
 }
 .balance-remainder-box span {
     font-family: 'JetBrains Mono', monospace;
@@ -836,10 +501,345 @@ body {
     font-weight: 700;
 }
 
-/* Responsif Mobile/Tablet untuk Checkout */
+/* ==========================================================================
+   6. SELLER PANEL DASHBOARD & LIVE EDIT STYLES
+   ========================================================================== */
+.seller-layout-container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 32px;
+    padding: 32px 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.seller-sidebar {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+}
+
+.seller-profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.seller-avatar-large {
+    width: 72px;
+    height: 72px;
+    background: var(--bg-card);
+    border: 2px solid #60A5FA;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    margin-bottom: 12px;
+}
+
+.seller-name {
+    color: var(--color-text-white);
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.seller-role {
+    color: #60A5FA;
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 2px;
+}
+
+.seller-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border-color);
+    margin: 16px 0;
+}
+
+.seller-menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.seller-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    color: var(--color-text-silver);
+    font-size: 13px;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+.seller-menu-item span { font-size: 16px; }
+.seller-menu-item:hover {
+    background: rgba(96, 165, 250, 0.05);
+    color: #60A5FA;
+}
+.seller-menu-item.active {
+    background: rgba(96, 165, 250, 0.1);
+    color: #60A5FA;
+    font-weight: 700;
+    border: 1px solid rgba(96, 165, 250, 0.15);
+}
+
+.btn-logout-seller {
+    font-size: 12px;
+    color: var(--color-text-error);
+    padding: 10px;
+    border-radius: 8px;
+    background: rgba(239, 68, 68, 0.05);
+    border: 1px solid rgba(239, 68, 68, 0.1);
+    transition: all 0.2s;
+}
+.btn-logout-seller:hover {
+    background: rgba(239, 68, 68, 0.15);
+}
+
+.seller-main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.seller-content-header h3 {
+    color: var(--color-text-white);
+    font-size: 18px;
+    font-weight: 700;
+}
+.seller-content-header p {
+    color: var(--color-text-muted);
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+.seller-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.seller-stat-box {
+    background: var(--bg-card-alt);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.seller-stat-icon {
+    font-size: 28px;
+    width: 48px;
+    height: 48px;
+    background: var(--bg-card);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.seller-stat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.seller-stat-title { color: var(--color-text-silver); font-size: 12px; }
+.seller-stat-number {
+    color: var(--color-text-white);
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.seller-product-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.seller-item-card {
+    background: var(--bg-card-alt);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.seller-item-img {
+    font-size: 24px;
+    width: 48px;
+    height: 48px;
+    background: var(--bg-card);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.seller-item-meta-data { flex: 1; }
+.seller-item-meta-data h5 { color: var(--color-text-white); font-size: 14px; font-weight: 700; }
+.seller-item-meta-data p { color: var(--color-text-muted); font-size: 12px; margin-top: 2px; }
+
+.seller-item-pricing {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+.seller-item-pricing .price {
+    font-family: 'JetBrains Mono', monospace;
+    color: #60A5FA;
+    font-weight: 700;
+    font-size: 14px;
+}
+.badge-status.stock-ok {
+    font-size: 10px;
+    color: var(--color-primary);
+    background: rgba(74, 222, 128, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.btn-edit-action {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--color-text-silver);
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 6px;
+    transition: all 0.2s;
+}
+.btn-edit-action:hover {
+    border-color: #60A5FA;
+    color: #60A5FA;
+    background: rgba(96, 165, 250, 0.05);
+}
+
+/* ==========================================================================
+   7. SELLER MODAL DIALOG COMPONENT STYLES
+   ========================================================================== */
+.seller-modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(5, 5, 10, 0.85);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.seller-modal-content {
+    background: var(--bg-card-alt);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    width: 100%;
+    max-width: 460px;
+    padding: 24px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.seller-modal-content h4 {
+    color: var(--color-text-white);
+    font-size: 16px;
+    font-weight: 700;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+}
+
+.seller-modal-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.seller-modal-form-group label { font-size: 12px; color: var(--color-text-silver); }
+.seller-modal-form-group input {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--color-text-white);
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.seller-modal-form-group input:focus { border-color: #60A5FA; }
+
+.seller-modal-form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.seller-modal-action-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 12px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+}
+
+.btn-modal-cancel {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--color-text-silver);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+}
+.btn-modal-cancel:hover { background: rgba(255,255,255,0.02); }
+
+.btn-modal-submit {
+    background: #60A5FA;
+    border: none;
+    color: #0A0A0F;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.btn-modal-submit:hover { background: #3B82F6; }
+
+.btn-modal-delete {
+    background: rgba(239, 68, 68, 0.05);
+    border: 1px solid rgba(239, 68, 68, 0.15);
+    color: var(--color-text-error);
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-modal-delete:hover { background: rgba(239, 68, 68, 0.15); }
+
+/* ==========================================================================
+   8. RESPONSIVE MEDIA QUERIES
+   ========================================================================== */
 @media (max-width: 992px) {
-    .checkout-layout {
-        grid-template-columns: 1fr;
-        gap: 24px;
-    }
+    .checkout-layout { grid-template-columns: 1fr; gap: 24px; }
+    .seller-layout-container { grid-template-columns: 1fr; }
+    .seller-stats-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+    .profile-layout-container { grid-template-columns: 1fr; gap: 24px; }
 }

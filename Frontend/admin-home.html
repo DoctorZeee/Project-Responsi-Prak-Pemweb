@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CraftBazaar Seller - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="main-navbar">
+    <div class="nav-logo" onclick="window.location.href='admin-home.html'" style="cursor: pointer;">
+        <span>⚔ Craft</span><span style="color: var(--color-text-rare);">Bazaar</span>
+        <span class="mono-badge" style="color: #60A5FA; background: rgba(96, 165, 250, 0.08); border-color: #1E40AF; font-size: 10px; margin-left: 8px;">SELLER PANEL</span>
+    </div>
+    <div class="nav-links">
+        <a href="admin-home.html" class="active">Dashboard</a> 
+    </div>
+    <div class="nav-user-zone">
+        <div class="mono-badge" style="color: #FBBF24; background: rgba(251, 191, 36, 0.08); border-color: rgba(251, 191, 36, 0.2);">
+            💰 Pendapatan: Rp 2.450.000
+        </div>
+        <div class="nav-avatar-circle" style="outline: 2px #60A5FA solid;">👨‍💻</div>
+    </div>
+</nav>
+
+<div class="seller-layout-container">
+    
+    <aside class="seller-sidebar">
+        <div class="seller-profile-section">
+            <div class="seller-avatar-large">👨‍💻</div>
+            <h2 class="seller-name">steve_builder</h2>
+            <p class="seller-role">🛡️ Verified Seller</p>
+        </div>
+        
+        <div class="seller-divider"></div>
+        
+        <ul class="seller-menu-list">
+            <li>
+                <a href="admin-home.html" class="seller-menu-item active">
+                    <span>📊</span> Dashboard & Produk
+                </a>
+            </li>
+            <li>
+                <a href="seller-orders.html" class="seller-menu-item">
+                    <span>📥</span> Order Masuk
+                </a>
+            </li>
+            <li>
+                <a href="seller-analytics.html" class="seller-menu-item">
+                    <span>📈</span> Statistik Penjualan
+                </a>
+            </li>
+            <li>
+                <a href="seller-settings.html" class="seller-menu-item">
+                    <span>⚙️</span> Pengaturan Toko
+                </a>
+            </li>
+        </ul>
+
+        <div class="seller-divider"></div>
+        
+        <a href="Home-Profile.html" class="btn-logout-seller" style="text-align: center; text-decoration: none; display: block;">
+            🚪 Keluar ke Mode Buyer
+        </a>
+    </aside>
+
+    <main class="seller-main-content">
+        <div class="seller-content-header">
+            <h3>📊 Dashboard & Manajemen Produk</h3>
+            <p>Pantau performa toko dan kelola item jualan langsung dari satu tempat</p>
+        </div>
+
+        <div class="seller-stats-grid">
+            <div class="seller-seller-stat-box">
+                <span class="seller-stat-icon">💰</span>
+                <div class="seller-seller-stat-info">
+                    <span class="seller-stat-title">Total Pendapatan</span>
+                    <span class="seller-stat-number">Rp 2.450.000</span>
+                </div>
+            </div>
+            <div class="seller-stat-box">
+                <span class="seller-stat-icon">📦</span>
+                <div class="seller-stat-info">
+                    <span class="seller-stat-title">Produk Aktif</span>
+                    <span class="seller-stat-number">8 Item</span>
+                </div>
+            </div>
+            <div class="seller-stat-box">
+                <span class="seller-stat-icon">📥</span>
+                <div class="seller-stat-info">
+                    <span class="seller-stat-title">Pesanan Diproses</span>
+                    <span class="seller-stat-number">3 Baru</span>
+                </div>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px;">
+            <h4 style="color: #F0F4FF; font-size: 15px; font-weight: 700;">Inventory Produk Jualan</h4>
+            <button class="btn-primary" onclick="openModal('addModal')" style="padding: 8px 16px; font-size: 12px; font-weight: 700; border-radius: 6px;">
+                ➕ Tambah Item Baru
+            </button>
+        </div>
+        
+        <div class="seller-product-list">
+            
+            <div class="seller-item-card">
+                <div class="seller-item-img">🗡️</div>
+                <div class="seller-item-meta-data">
+                    <h5>Diamond Sword +5 Sharpness</h5>
+                    <p>Harga: <span style="color: #60A5FA; font-family: 'JetBrains Mono', monospace;">Rp 125.000</span> | Stok: 2 | Terjual: 14 kali</p>
+                </div>
+                <div class="seller-item-pricing">
+                    <span class="badge-status stock-ok">Aktif</span>
+                    <button class="btn-edit-action" onclick="openModal('editModal', 'Diamond Sword +5 Sharpness', 125000, 2)">📝 Edit</button>
+                </div>
+            </div>
+            
+            <div class="seller-item-card">
+                <div class="seller-item-img">🏹</div>
+                <div class="seller-item-meta-data">
+                    <h5>Enchanted Bow (Infinity)</h5>
+                    <p>Harga: <span style="color: #60A5FA; font-family: 'JetBrains Mono', monospace;">Rp 85.000</span> | Stok: 5 | Terjual: 8 kali</p>
+                </div>
+                <div class="seller-item-pricing">
+                    <span class="badge-status stock-ok">Aktif</span>
+                    <button class="btn-edit-action" onclick="openModal('editModal', 'Enchanted Bow (Infinity)', 85000, 5)">📝 Edit</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div id="addModal" class="seller-modal-overlay">
+    <div class="seller-modal-content">
+        <h4>➕ Tambah Item Kerajinan Baru</h4>
+        <div class="seller-modal-form-group">
+            <label>Nama Item</label>
+            <input type="text">
+        </div>
+        <div class="seller-modal-action-footer">
+            <button class="btn-modal-cancel" onclick="closeModal('addModal')">Batal</button>
+            <button class="btn-modal-submit" onclick="closeModal('addModal')">Simpan</button>
+        </div>
+    </div>
+</div>
+
+<div id="editModal" class="seller-modal-overlay">
+    <div class="seller-modal-content">
+        <h4>📝 Ubah Detail Item Produk</h4>
+        <div class="seller-modal-form-group">
+            <label>Nama Item</label>
+            <input type="text" id="editItemName">
+        </div>
+        <div class="seller-modal-form-grid-2">
+            <div class="seller-modal-form-group">
+                <label>Harga Pasaran (Rp)</label>
+                <input type="number" id="editItemPrice">
+            </div>
+            <div class="seller-modal-form-group">
+                <label>Update Stok</label>
+                <input type="number" id="editItemStock">
+            </div>
+        </div>
+        <div class="seller-modal-action-footer" style="justify-content: space-between;">
+            <button class="btn-modal-delete" onclick="closeModal('editModal')">🗑️ Hapus Produk</button>
+            <div style="display: flex; gap: 12px;">
+                <button class="btn-modal-cancel" onclick="closeModal('editModal')">Batal</button>
+                <button class="btn-modal-submit" onclick="closeModal('editModal')">Terapkan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openModal(modalId, name = '', price = 0, stock = 0) {
+        document.getElementById(modalId).style.display = 'flex';
+        
+        if (modalId === 'editModal') {
+            document.getElementById('editItemName').value = name;
+            document.getElementById('editItemPrice').value = price;
+            document.getElementById('editItemStock').value = stock;
+        }
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
