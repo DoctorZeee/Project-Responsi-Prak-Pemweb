@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CraftBazaar - Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="main-navbar">
+    <div class="nav-logo" onclick="window.location.href='#'">
+        <span>⚔ Craft</span><span style="color: var(--color-text-rare);">Bazaar</span>
+    </div>
+    <div class="nav-links">
+        <a href="Home-Profile.html">Home</a>
+        <a href="#" class="active">Marketplace</a> </div>
+ <div class="nav-user-zone">
+    <div class="mono-badge" style="color: var(--color-text-rare); background: rgba(251, 191, 36, 0.08); border-color: rgba(251, 191, 36, 0.2);">
+        💰 Rp 500.000
+    </div>
+    <div onclick="window.location.href='Home-Checkout.html'" style="color: #8892B0; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+        🛒 Cart <span style="color: var(--color-primary); font-weight: 700;">(2)</span>
+    </div>
+    <div class="nav-avatar-circle">🧑</div>
+</div>
+</nav>
+
+<div class="marketplace-layout">
+
+    <aside class="filter-sidebar">
+        
+        <div class="filter-group">
+            <h4 class="filter-title">Kategori</h4>
+            <label class="filter-item-row">
+                <input type="checkbox" checked> Semua Item
+            </label>
+            <label class="filter-item-row">
+                <input type="checkbox"> ⚔️ Weapons
+            </label>
+            <label class="filter-item-row">
+                <input type="checkbox"> 🛡️ Armor
+            </label>
+            <label class="filter-item-row">
+                <input type="checkbox"> 🏗️ Building
+            </label>
+            <label class="filter-item-row">
+                <input type="checkbox"> 🎨 Skins
+            </label>
+            <label class="filter-item-row">
+                <input type="checkbox"> 📦 Resource Pack
+            </label>
+            <label class="filter-item-row">
+                <input type="checkbox"> 🍎 Consumable
+            </label>
+        </div>
+
+        <div class="filter-group">
+            <h4 class="filter-title">Rarity</h4>
+            <label class="filter-item-row">
+                <span class="rarity-dot" style="background: #94A3B8;"></span> Common
+            </label>
+            <label class="filter-item-row">
+                <span class="rarity-dot" style="background: #4ADE80;"></span> Uncommon
+            </label>
+            <label class="filter-item-row">
+                <span class="rarity-dot" style="background: #60A5FA;"></span> Rare
+            </label>
+            <label class="filter-item-row">
+                <span class="rarity-dot" style="background: #C084FC;"></span> Epic
+            </label>
+            <label class="filter-item-row">
+                <span class="rarity-dot" style="background: #FBBF24;"></span> Legendary
+            </label>
+        </div>
+
+        <div class="filter-group">
+            <h4 class="filter-title">Harga</h4>
+            <div class="price-range-inputs">
+                <input type="text" value="0">
+                <span style="color: #F0F4FF; padding: 0 4px;">–</span>
+                <input type="text" value="200.000">
+            </div>
+        </div>
+
+        <div class="filter-group">
+            <h4 class="filter-title">Rating</h4>
+            <label class="filter-item-row">
+                <input type="checkbox" checked> <span class="rating-stars">★★★★★</span>
+            </label>
+            <label class="filter-item-row">
+                <input type="checkbox"> <span class="rating-stars">★★★★</span><span style="color: #8892B0;">+</span>
+            </label>
+            <label class="filter-item-row">
+                <input type="checkbox"> <span class="rating-stars">★★★</span><span style="color: #8892B0;">+</span>
+            </label>
+        </div>
+
+        <button class="btn-primary" style="padding: 8px 12px; font-size: 11px; font-weight: 700; width: 100%; border-radius: 6px; margin-top: 10px;">
+            Terapkan Filter
+        </button>
+    </aside>
+
+    <main class="marketplace-main-content">
+        
+        <div class="marketplace-toolbar">
+            <div class="search-input-wrapper">
+                <span>🔍</span>
+                <input type="text" placeholder="Cari item, skin, resource pack...">
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <select class="sort-select">
+                    <option>Terpopuler</option>
+                    <option>Harga: Rendah ke Tinggi</option>
+                    <option>Terbaru</option>
+                </select>
+                <span style="font-size: 12px; color: #4A5568;">1,240 hasil</span>
+            </div>
+        </div>
+
+        <div class="active-tags-container">
+            <div class="active-tag">Weapons <span>×</span></div>
+            <div class="active-tag">Legendary <span>×</span></div>
+            <div class="active-tag">Rating 4★+ <span>×</span></div>
+        </div>
+
+        <div class="products-grid">
+            
+            <div class="product-card legendary">
+                <div class="card-visual-header">🗡️</div>
+                <div class="card-body">
+                    <div class="card-meta-row">
+                        <span class="mono-badge" style="color: #FBBF24; background: rgba(251, 191, 36, 0.08); border-color: #92400E; box-shadow: 0 0 8px rgba(251, 191, 36, 0.2);">LEGENDARY</span>
+                        <span class="rating-stars" style="font-size: 11px;">★★★★★</span>
+                    </div>
+                    <div class="card-title">Diamond Sword +5</div>
+                    <div class="card-author">by steve_builder</div>
+                    <div class="card-footer-action">
+                        <div class="card-price">Rp 125.000</div>
+                        <button class="btn-primary" style="font-size: 11px; padding: 5px 10px; border-radius: 6px;">+ Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card epic">
+                <div class="card-visual-header">🧙</div>
+                <div class="card-body">
+                    <div class="card-meta-row">
+                        <span class="mono-badge" style="color: #C084FC; background: rgba(192, 132, 252, 0.08); border-color: #6B21A8;">EPIC</span>
+                        <span class="rating-stars" style="font-size: 11px;">★★★★☆</span>
+                    </div>
+                    <div class="card-title">Wizard Skin Pack</div>
+                    <div class="card-author">by alex_crafter</div>
+                    <div class="card-footer-action">
+                        <div class="card-price">Rp 85.000</div>
+                        <button class="btn-primary" style="font-size: 11px; padding: 5px 10px; border-radius: 6px;">+ Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card rare">
+                <div class="card-visual-header">🛡️</div>
+                <div class="card-body">
+                    <div class="card-meta-row">
+                        <span class="mono-badge" style="color: #60A5FA; background: rgba(96, 165, 250, 0.08); border-color: #1E40AF;">RARE</span>
+                        <span class="rating-stars" style="font-size: 11px;">★★★★☆</span>
+                    </div>
+                    <div class="card-title">Netherite Shield</div>
+                    <div class="card-author">by crafts_id</div>
+                    <div class="card-footer-action">
+                        <div class="card-price">Rp 62.000</div>
+                        <button class="btn-primary" style="font-size: 11px; padding: 5px 10px; border-radius: 6px;">+ Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="card-visual-header">🏹</div>
+                <div class="card-body">
+                    <div class="card-meta-row">
+                        <span class="mono-badge" style="color: #4ADE80; background: rgba(74, 222, 128, 0.08); border-color: #166534;">UNCOMMON</span>
+                        <span class="rating-stars" style="font-size: 11px;">★★★☆☆</span>
+                    </div>
+                    <div class="card-title">Enchanted Bow</div>
+                    <div class="card-author">by notch_shop</div>
+                    <div class="card-footer-action">
+                        <div class="card-price">Rp 38.000</div>
+                        <button class="btn-primary" style="font-size: 11px; padding: 5px 10px; border-radius: 6px;">+ Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card rare">
+                <div class="card-visual-header">🧪</div>
+                <div class="card-body">
+                    <div class="card-meta-row">
+                        <span class="mono-badge" style="color: #60A5FA; background: rgba(96, 165, 250, 0.08); border-color: #1E40AF;">RARE</span>
+                        <span class="rating-stars" style="font-size: 11px;">★★★★☆</span>
+                    </div>
+                    <div class="card-title">Strength Potion x10</div>
+                    <div class="card-author">by brew_master</div>
+                    <div class="card-footer-action">
+                        <div class="card-price">Rp 45.000</div>
+                        <button class="btn-primary" style="font-size: 11px; padding: 5px 10px; border-radius: 6px;">+ Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="card-visual-header">💎</div>
+                <div class="card-body">
+                    <div class="card-meta-row">
+                        <span class="mono-badge" style="color: #94A3B8; background: rgba(148, 163, 184, 0.1); border-color: #475569;">COMMON</span>
+                        <span class="rating-stars" style="font-size: 11px;">★★★☆☆</span>
+                    </div>
+                    <div class="card-title">Diamond Block x64</div>
+                    <div class="card-author">by miner_pro</div>
+                    <div class="card-footer-action">
+                        <div class="card-price">Rp 18.000</div>
+                        <button class="btn-primary" style="font-size: 11px; padding: 5px 10px; border-radius: 6px;">+ Cart</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="pagination-container">
+            <button class="page-btn">← Prev</button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <span style="color: #4A5568; padding: 0 4px;">...</span>
+            <button class="page-btn">24</button>
+            <button class="page-btn">Next →</button>
+        </div>
+
+    </main>
+</div>
+
+</body>
+</html>

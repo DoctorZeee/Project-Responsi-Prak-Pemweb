@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CraftBazaar - Keranjang Belanja</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="main-navbar">
+    <div class="nav-logo" onclick="window.location.href='Home-Profile.html'" style="cursor: pointer;">
+        <span>⚔ Craft</span><span style="color: var(--color-text-rare);">Bazaar</span>
+    </div>
+    <div class="nav-links">
+        <a href="Home-Profile.html">Home</a>
+        <a href="Marketplace-main.html">Marketplace</a>
+    </div>
+    <div class="nav-user-zone">
+        <div class="mono-badge" style="color: #FBBF24; background: rgba(251, 191, 36, 0.08); border-color: rgba(251, 191, 36, 0.2);">
+            💰 Rp 500.000
+        </div>
+        <div onclick="window.location.href='Home-Checkout.html'" style="color: var(--color-primary); font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 4px; font-weight: 700;">
+            🛒 Cart <span>(2)</span>
+        </div>
+        <div class="nav-avatar-circle" style="outline: 2px var(--color-primary) solid;">🧑</div>
+    </div>
+</nav>
+
+<div class="checkout-layout">
+
+    <main class="checkout-main">
+        <div class="checkout-title-row">
+            <h2>🛒 Keranjang Belanja</h2>
+            <span class="item-count">(2 item)</span>
+        </div>
+
+        <div class="cart-item">
+            <div class="cart-item-visual">🗡️</div>
+            <div class="cart-item-info">
+                <div class="cart-item-title">Diamond Sword +5 Sharpness</div>
+                <div class="cart-item-author">by steve_builder</div>
+                <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+                    <span class="mono-badge" style="color: #FBBF24; background: rgba(251, 191, 36, 0.08); border-color: #92400E; box-shadow: 0 0 8px rgba(251, 191, 36, 0.2);">LEGENDARY</span>
+                    <span class="cart-item-price">Rp 125.000</span>
+                </div>
+            </div>
+            <button class="cart-delete-btn" title="Hapus item">🗑</button>
+        </div>
+
+        <div class="cart-item">
+            <div class="cart-item-visual">🛡️</div>
+            <div class="cart-item-info">
+                <div class="cart-item-title">Netherite Shield</div>
+                <div class="cart-item-author">by crafts_id</div>
+                <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+                    <span class="mono-badge" style="color: #60A5FA; background: rgba(96, 165, 250, 0.08); border-color: #1E40AF;">RARE</span>
+                    <span class="cart-item-price">Rp 62.000</span>
+                </div>
+            </div>
+            <button class="cart-delete-btn" title="Hapus item">🗑</button>
+        </div>
+
+        <div class="promo-box">
+            <div class="promo-input-wrapper">
+                <span>🎟️</span>
+                <input type="text" placeholder="Masukkan kode promo...">
+            </div>
+            <button class="btn-primary" style="padding: 6px 14px; font-size: 11px; font-weight: 700; border-radius: 6px;">
+                Pakai
+            </button>
+        </div>
+    </main>
+
+    <aside class="summary-sidebar">
+        <h3>Ringkasan Order</h3>
+        
+        <div class="summary-row">
+            <span>Diamond Sword +5</span>
+            <span class="mono-text">Rp 125.000</span>
+        </div>
+        
+        <div class="summary-row">
+            <span>Netherite Shield</span>
+            <span class="mono-text">Rp 62.000</span>
+        </div>
+        
+        <div class="summary-row">
+            <span>Subtotal</span>
+            <span class="mono-text">Rp 187.000</span>
+        </div>
+        
+        <div class="summary-row" style="border-bottom: none;">
+            <span>Diskon</span>
+            <span class="mono-text" style="color: var(--color-primary);">- Rp 0</span>
+        </div>
+        
+        <div style="width: 100%; height: 1px; background: #252840; margin: 4px 0;"></div>
+        
+        <div class="summary-row total-row">
+            <span>Total</span>
+            <span class="total-price">Rp 187.000</span>
+        </div>
+
+        <div class="balance-status-box">
+            <div>
+                <div class="balance-label">Saldo CraftBazaar</div>
+                <div class="balance-amount">Rp 500.000</div>
+            </div>
+            <span class="status-badge-ok">✓ Cukup</span>
+        </div>
+
+        <div class="balance-remainder-box">
+            Sisa saldo setelah transaksi: <span>Rp 313.000</span>
+        </div>
+
+        <button class="btn-primary" style="width: 100%; padding: 12px; font-size: 13px; font-weight: 700; border-radius: 8px; margin-top: 8px;">
+            ⚡ Konfirmasi Pembelian
+        </button>
+        
+        <button class="btn-secondary" onclick="window.location.href='Marketplace.html'" style="width: 100%; padding: 10px; font-size: 13px; font-weight: 700; border-radius: 8px; background: #181B2A; border: 1px solid #252840; color: #8892B0; cursor: pointer;">
+            ← Lanjut Belanja
+        </button>
+    </aside>
+
+</div>
+
+</body>
+</html>
