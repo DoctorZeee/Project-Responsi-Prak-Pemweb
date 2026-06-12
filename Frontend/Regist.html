@@ -12,7 +12,7 @@
     <div class="auth-form-side">
         <div class="auth-header">
             <h1>Buat Akun Baru</h1>
-            <p>Sudah mendaftar? <span onclick="window.location.href='Signin.html'">Masuk di sini →</span></p>
+            <p>Sudah mendaftar? <span onclick="window.location.href='Signin.html'" style="cursor: pointer; color: var(--color-primary);">Masuk di sini →</span></p>
         </div>
 
         <form id="registerForm">
@@ -74,6 +74,7 @@
 </div>
 
 <script>
+// Fungsi untuk memilih role visual dan mengganti value hidden input
 function setRegRole(role) {
     document.getElementById('roleInput').value = role;
     document.querySelectorAll('.role-card').forEach(card => card.classList.remove('active'));
@@ -81,19 +82,39 @@ function setRegRole(role) {
     if(role === 'seller') document.getElementById('regSeller').classList.add('active');
 }
 
+// Fungsi Submit Pendaftaran
 document.getElementById('registerForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+    e.preventDefault(); // Mencegah reload halaman
+    
     const formData = new FormData(this);
+    
+    // Validasi dasar di sisi frontend
     if(formData.get('password') !== formData.get('confirm_password')) {
         alert("Error: Password dan konfirmasi tidak sesuai!");
         return;
     }
-    fetch('/auth/register.php', { method: 'POST', body: formData })
-    .then(res => res.json())
+    
+    // Tembak API Register Backend
+    fetch('../Backend/auth/register.php', { method: 'POST', body: formData })
+    .then(res => {
+        if (!res.ok) { return res.json().then(err => { throw err; }); }
+        return res.json();
+    })
     .then(data => {
-        if(data.success) { alert(data.message); window.location.href = data.redirect; }
-        else { alert("Gagal: " + data.message); }
-    }).catch(() => alert("HTML/CSS Berhasil dimuat!"));
+        if(data.success) { 
+            alert("Berhasil Mendaftar! Silakan login untuk melanjutkan."); 
+            // Arahkan ke halaman login
+            window.location.href = 'Signin.html'; 
+        }
+    })
+    .catch(error => {
+        // Menangkap error validasi dari backend (seperti email sudah dipakai, dll)
+        if (error.errors && error.errors.length > 0) {
+            alert("Gagal: \n- " + error.errors.join("\n- "));
+        } else {
+            alert("Gagal Mendaftar: " + (error.message || "Kesalahan pada server"));
+        }
+    });
 });
 </script>
 </body>

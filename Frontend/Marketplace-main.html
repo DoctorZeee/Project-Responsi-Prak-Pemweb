@@ -9,69 +9,36 @@
 <body>
 
 <nav class="main-navbar">
-    <div class="nav-logo" onclick="window.location.href='#'">
+    <div class="nav-logo" onclick="window.location.href='Marketplace-main.html'">
         <span>⚔ Craft</span><span style="color: var(--color-text-rare);">Bazaar</span>
     </div>
     <div class="nav-links">
-        <a href="Home-Profile.html">Home</a>
-        <a href="#" class="active">Marketplace</a> </div>
- <div class="nav-user-zone">
-    <div class="mono-badge" style="color: var(--color-text-rare); background: rgba(251, 191, 36, 0.08); border-color: rgba(251, 191, 36, 0.2);">
-        💰 Rp 500.000
+        <a href="#" id="navAkun">Akun</a>
+        <a href="Marketplace-main.html" class="active">Marketplace</a> 
     </div>
-    <div onclick="window.location.href='Home-Checkout.html'" style="color: #8892B0; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 4px;">
-        🛒 Cart <span style="color: var(--color-primary); font-weight: 700;">(2)</span>
-    </div>
-    <div class="nav-avatar-circle">🧑</div>
-</div>
+    <div class="nav-user-zone" id="navUserZone"></div>
 </nav>
 
 <div class="marketplace-layout">
-
     <aside class="filter-sidebar">
-        
         <div class="filter-group">
             <h4 class="filter-title">Kategori</h4>
-            <label class="filter-item-row">
-                <input type="checkbox" checked> Semua Item
-            </label>
-            <label class="filter-item-row">
-                <input type="checkbox"> ⚔️ Weapons
-            </label>
-            <label class="filter-item-row">
-                <input type="checkbox"> 🛡️ Armor
-            </label>
-            <label class="filter-item-row">
-                <input type="checkbox"> 🏗️ Building
-            </label>
-            <label class="filter-item-row">
-                <input type="checkbox"> 🎨 Skins
-            </label>
-            <label class="filter-item-row">
-                <input type="checkbox"> 📦 Resource Pack
-            </label>
-            <label class="filter-item-row">
-                <input type="checkbox"> 🍎 Consumable
-            </label>
+            <label class="filter-item-row"><input type="checkbox" checked> Semua Item</label>
+            <label class="filter-item-row"><input type="checkbox"> ⚔️ Weapons</label>
+            <label class="filter-item-row"><input type="checkbox"> 🛡️ Armor</label>
+            <label class="filter-item-row"><input type="checkbox"> 🏗️ Building</label>
+            <label class="filter-item-row"><input type="checkbox"> 🎨 Skins</label>
+            <label class="filter-item-row"><input type="checkbox"> 📦 Resource Pack</label>
+            <label class="filter-item-row"><input type="checkbox"> 🍎 Consumable</label>
         </div>
 
         <div class="filter-group">
             <h4 class="filter-title">Rarity</h4>
-            <label class="filter-item-row">
-                <span class="rarity-dot" style="background: #94A3B8;"></span> Common
-            </label>
-            <label class="filter-item-row">
-                <span class="rarity-dot" style="background: #4ADE80;"></span> Uncommon
-            </label>
-            <label class="filter-item-row">
-                <span class="rarity-dot" style="background: #60A5FA;"></span> Rare
-            </label>
-            <label class="filter-item-row">
-                <span class="rarity-dot" style="background: #C084FC;"></span> Epic
-            </label>
-            <label class="filter-item-row">
-                <span class="rarity-dot" style="background: #FBBF24;"></span> Legendary
-            </label>
+            <label class="filter-item-row"><span class="rarity-dot" style="background: #94A3B8;"></span> Common</label>
+            <label class="filter-item-row"><span class="rarity-dot" style="background: #4ADE80;"></span> Uncommon</label>
+            <label class="filter-item-row"><span class="rarity-dot" style="background: #60A5FA;"></span> Rare</label>
+            <label class="filter-item-row"><span class="rarity-dot" style="background: #C084FC;"></span> Epic</label>
+            <label class="filter-item-row"><span class="rarity-dot" style="background: #FBBF24;"></span> Legendary</label>
         </div>
 
         <div class="filter-group">
@@ -83,26 +50,12 @@
             </div>
         </div>
 
-        <div class="filter-group">
-            <h4 class="filter-title">Rating</h4>
-            <label class="filter-item-row">
-                <input type="checkbox" checked> <span class="rating-stars">★★★★★</span>
-            </label>
-            <label class="filter-item-row">
-                <input type="checkbox"> <span class="rating-stars">★★★★</span><span style="color: #8892B0;">+</span>
-            </label>
-            <label class="filter-item-row">
-                <input type="checkbox"> <span class="rating-stars">★★★</span><span style="color: #8892B0;">+</span>
-            </label>
-        </div>
-
         <button class="btn-primary" style="padding: 8px 12px; font-size: 11px; font-weight: 700; width: 100%; border-radius: 6px; margin-top: 10px;">
             Terapkan Filter
         </button>
     </aside>
 
     <main class="marketplace-main-content">
-        
         <div class="marketplace-toolbar">
             <div class="search-input-wrapper">
                 <span>🔍</span>
@@ -114,128 +67,189 @@
                     <option>Harga: Rendah ke Tinggi</option>
                     <option>Terbaru</option>
                 </select>
-                <span style="font-size: 12px; color: #4A5568;">1,240 hasil</span>
             </div>
         </div>
 
-        <div class="active-tags-container">
-            <div class="active-tag">Weapons <span>×</span></div>
-            <div class="active-tag">Legendary <span>×</span></div>
-            <div class="active-tag">Rating 4★+ <span>×</span></div>
-        </div>
-
-        <div class="products-grid">
-            
-            <div class="product-card legendary">
-                <div class="card-visual-header">🗡️</div>
-                <div class="card-body">
-                    <div class="card-meta-row">
-                        <span class="mono-badge" style="color: #FBBF24; background: rgba(251, 191, 36, 0.08); border-color: #92400E; box-shadow: 0 0 8px rgba(251, 191, 36, 0.2);">LEGENDARY</span>
-                        <span class="rating-stars" style="font-size: 11px;">★★★★★</span>
-                    </div>
-                    <div class="card-title">Diamond Sword +5</div>
-                    <div class="card-author">by steve_builder</div>
-                    <div class="card-footer-action">
-                        <div class="card-price">Rp 125.000</div>
-                        <button class="btn-primary" style="font-size: 11px; padding: 5px 10px; border-radius: 6px;">+ Cart</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card epic">
-                <div class="card-visual-header">🧙</div>
-                <div class="card-body">
-                    <div class="card-meta-row">
-                        <span class="mono-badge" style="color: #C084FC; background: rgba(192, 132, 252, 0.08); border-color: #6B21A8;">EPIC</span>
-                        <span class="rating-stars" style="font-size: 11px;">★★★★☆</span>
-                    </div>
-                    <div class="card-title">Wizard Skin Pack</div>
-                    <div class="card-author">by alex_crafter</div>
-                    <div class="card-footer-action">
-                        <div class="card-price">Rp 85.000</div>
-                        <button class="btn-primary" style="font-size: 11px; padding: 5px 10px; border-radius: 6px;">+ Cart</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card rare">
-                <div class="card-visual-header">🛡️</div>
-                <div class="card-body">
-                    <div class="card-meta-row">
-                        <span class="mono-badge" style="color: #60A5FA; background: rgba(96, 165, 250, 0.08); border-color: #1E40AF;">RARE</span>
-                        <span class="rating-stars" style="font-size: 11px;">★★★★☆</span>
-                    </div>
-                    <div class="card-title">Netherite Shield</div>
-                    <div class="card-author">by crafts_id</div>
-                    <div class="card-footer-action">
-                        <div class="card-price">Rp 62.000</div>
-                        <button class="btn-primary" style="font-size: 11px; padding: 5px 10px; border-radius: 6px;">+ Cart</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="card-visual-header">🏹</div>
-                <div class="card-body">
-                    <div class="card-meta-row">
-                        <span class="mono-badge" style="color: #4ADE80; background: rgba(74, 222, 128, 0.08); border-color: #166534;">UNCOMMON</span>
-                        <span class="rating-stars" style="font-size: 11px;">★★★☆☆</span>
-                    </div>
-                    <div class="card-title">Enchanted Bow</div>
-                    <div class="card-author">by notch_shop</div>
-                    <div class="card-footer-action">
-                        <div class="card-price">Rp 38.000</div>
-                        <button class="btn-primary" style="font-size: 11px; padding: 5px 10px; border-radius: 6px;">+ Cart</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card rare">
-                <div class="card-visual-header">🧪</div>
-                <div class="card-body">
-                    <div class="card-meta-row">
-                        <span class="mono-badge" style="color: #60A5FA; background: rgba(96, 165, 250, 0.08); border-color: #1E40AF;">RARE</span>
-                        <span class="rating-stars" style="font-size: 11px;">★★★★☆</span>
-                    </div>
-                    <div class="card-title">Strength Potion x10</div>
-                    <div class="card-author">by brew_master</div>
-                    <div class="card-footer-action">
-                        <div class="card-price">Rp 45.000</div>
-                        <button class="btn-primary" style="font-size: 11px; padding: 5px 10px; border-radius: 6px;">+ Cart</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="card-visual-header">💎</div>
-                <div class="card-body">
-                    <div class="card-meta-row">
-                        <span class="mono-badge" style="color: #94A3B8; background: rgba(148, 163, 184, 0.1); border-color: #475569;">COMMON</span>
-                        <span class="rating-stars" style="font-size: 11px;">★★★☆☆</span>
-                    </div>
-                    <div class="card-title">Diamond Block x64</div>
-                    <div class="card-author">by miner_pro</div>
-                    <div class="card-footer-action">
-                        <div class="card-price">Rp 18.000</div>
-                        <button class="btn-primary" style="font-size: 11px; padding: 5px 10px; border-radius: 6px;">+ Cart</button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="pagination-container">
-            <button class="page-btn">← Prev</button>
-            <button class="page-btn active">1</button>
-            <button class="page-btn">2</button>
-            <button class="page-btn">3</button>
-            <span style="color: #4A5568; padding: 0 4px;">...</span>
-            <button class="page-btn">24</button>
-            <button class="page-btn">Next →</button>
-        </div>
-
+        <div class="products-grid" id="productContainer"></div>
     </main>
 </div>
 
+<script>
+// Variabel global untuk menyimpan data user yang sedang login
+let currentUser = null;
+
+document.addEventListener("DOMContentLoaded", function() {
+    checkUserStatus();
+    fetchItems();
+});
+
+// 1. Memeriksa Status Autentikasi dan Mengatur Hak Akses Menu Akun & Navbar
+function checkUserStatus() {
+    fetch('/Project-Responsi-Prak-Pemweb/Backend/api/user_status.php')        
+      .then(res => res.json())
+        .then(data => {
+            const navAkun = document.getElementById('navAkun');
+            const navUserZone = document.getElementById('navUserZone');
+
+            if (data.logged_in) {
+                currentUser = data.user; // Simpan data user ke variabel global
+
+                // Mengatur Link Menu Akun sesuai dengan Role
+                navAkun.onclick = function(e) {
+                    e.preventDefault();
+                    if (currentUser.role === 'seller' || currentUser.role === 'admin') {
+                        window.location.href = 'admin-home.html';
+                    } else {
+                        window.location.href = 'Home-Profile.html';
+                    }
+                };
+
+                // Mengatur Tampilan Konten Navbar jika Sudah Login
+                let userZoneHTML = '';
+                if (currentUser.role === 'buyer') {
+                    // Hanya Tampilkan Saldo & Keranjang untuk Buyer
+                    userZoneHTML = `
+                        <div class="mono-badge" style="color: var(--color-text-rare); background: rgba(251, 191, 36, 0.08); border-color: rgba(251, 191, 36, 0.2);">
+                            💰 Rp 500.000
+                        </div>
+                        <div onclick="window.location.href='Home-Checkout.html'" style="color: #8892B0; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+                            🛒 Cart <span style="color: var(--color-primary); font-weight: 700;">(0)</span>
+                        </div>
+                    `;
+                } else {
+                    // Jika Seller / Admin, Tampilkan Badge Role di Navbar
+                    userZoneHTML = `
+                        <div class="mono-badge" style="color: #C084FC; background: rgba(192, 132, 252, 0.08); border-color: rgba(192, 132, 252, 0.2); text-transform: uppercase;">
+                            🛡️ ${currentUser.role}
+                        </div>
+                    `;
+                }
+                
+                // Tambahkan avatar dan nama user
+                userZoneHTML += `
+                    <div class="nav-avatar-circle" title="${currentUser.username}">🧑</div>
+                    <span style="font-size: 12px; color: #8892B0; cursor: pointer;" onclick="logout()">Logout</span>
+                `;
+                navUserZone.innerHTML = userZoneHTML;
+
+            } else {
+                // KONDISI BELUM LOGIN (GUEST)
+                currentUser = null;
+
+                // Jika menu Akun diklik saat belum login, arahkan ke halaman Signin
+                navAkun.onclick = function(e) {
+                    e.preventDefault();
+                    window.location.href = 'Signin.html';
+                };
+
+                // Tampilkan Tombol Masuk di Navbar
+                navUserZone.innerHTML = `
+                    <button class="btn-primary" onclick="window.location.href='Signin.html'" style="padding: 6px 12px; font-size: 12px; border-radius: 4px;">
+                        Masuk / Daftar
+                    </button>
+                `;
+            }
+        })
+        .catch(err => console.error("Gagal memeriksa status auth:", err));
+}
+
+// 2. Mengambil Data Item dari Database
+function fetchItems() {
+    fetch('http://localhost/Praktikum_PBO/Project-Responsi-Prak-Pemweb/Backend/api/items.php')
+        .then(response => response.json())
+        .then(result => {
+            if(result.success) {
+                renderItems(result.data);
+            }
+        })
+        .catch(error => console.error("Error Fetching Items:", error));
+}
+
+// 3. Merender Tampilan Katalog Barang
+function renderItems(items) {
+    const container = document.getElementById('productContainer');
+    container.innerHTML = ''; 
+
+    items.forEach(item => {
+        let badgeColor, borderColor;
+        switch(item.rarity) {
+            case 'legendary': badgeColor = '#FBBF24'; borderColor = '#92400E'; break;
+            case 'epic': badgeColor = '#C084FC'; borderColor = '#6B21A8'; break;
+            case 'rare': badgeColor = '#60A5FA'; borderColor = '#1E40AF'; break;
+            case 'uncommon': badgeColor = '#4ADE80'; borderColor = '#166534'; break;
+            default: badgeColor = '#94A3B8'; borderColor = '#475569';
+        }
+
+        const priceFormatted = new Intl.NumberFormat('id-ID', { 
+            style: 'currency', currency: 'IDR', minimumFractionDigits: 0 
+        }).format(item.price);
+
+        const cardHTML = `
+            <div class="product-card ${item.rarity}">
+                <div class="card-visual-header">📦</div>
+                <div class="card-body">
+                    <div class="card-meta-row">
+                        <span class="mono-badge" style="color: ${badgeColor}; background: ${badgeColor}20; border-color: ${borderColor}; text-transform: uppercase;">
+                            ${item.rarity}
+                        </span>
+                        <span class="rating-stars" style="font-size: 11px;">★ ${item.avg_rating}</span>
+                    </div>
+                    <div class="card-title">${item.name}</div>
+                    <div class="card-author">by ${item.seller_name}</div>
+                    <div class="card-footer-action">
+                        <div class="card-price">${priceFormatted}</div>
+                        <button class="btn-primary" onclick="addToCart(${item.id})" style="font-size: 11px; padding: 5px 10px; border-radius: 6px;">+ Cart</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        container.innerHTML += cardHTML;
+    });
+}
+
+// 4. Proteksi Tombol Tambah Keranjang (Hanya untuk Buyer yang sudah Login)
+function addToCart(itemId) {
+    // PROTEKSI 1: Cek apakah sudah login
+    if (!currentUser) {
+        alert("Akses Ditolak: Anda harus login terlebih dahulu!");
+        window.location.href = 'Signin.html';
+        return;
+    }
+
+    // PROTEKSI 2: Cek apakah rolenya adalah buyer
+    if (currentUser.role !== 'buyer') {
+        alert("Akses Ditolak: Hanya akun dengan Role BUYER yang dapat menambah barang ke keranjang!");
+        return;
+    }
+
+    // Jika lolos kedua proteksi, jalankan proses penambahan ke keranjang di database
+    const formData = new FormData();
+    formData.append('item_id', itemId);
+    formData.append('quantity', 1);
+
+    fetch('http://localhost/Praktikum_PBO/Project-Responsi-Prak-Pemweb/Backend/buyer/cart/add.php', { 
+        method: 'POST', 
+        body: formData 
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.success) {
+            alert("Berhasil dimasukkan ke keranjang belanja!");
+            checkUserStatus(); // Refresh data navbar jika diperlukan
+        } else {
+            alert("Gagal: " + data.message);
+        }
+    });
+}
+
+// Fungsi pembantu untuk logout
+function logout() {
+    fetch('http://localhost/Praktikum_PBO/Project-Responsi-Prak-Pemweb/Backend/auth/logout.php')
+    .then(() => {
+        alert("Berhasil keluar akun.");
+        window.location.reload();
+    });
+}
+</script>
 </body>
 </html>

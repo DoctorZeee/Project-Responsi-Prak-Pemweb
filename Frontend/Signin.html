@@ -19,34 +19,17 @@
     <div class="auth-form-side">
         <div class="auth-header">
             <h1>Masuk Akun</h1>
-            <p>Belum punya akun? <span onclick="window.location.href='Regist.html'">Daftar di sini →</span></p>
+            <p>Belum punya akun? <span onclick="window.location.href='Regist.html'" style="cursor: pointer; color: var(--color-primary);">Daftar di sini →</span></p>
+            <p style="margin-top: 10px; font-size: 12px;">
+                Atau <span onclick="window.location.href='Marketplace-main.html'" style="cursor: pointer; color: var(--color-text-rare); text-decoration: underline;">Lihat Marketplace tanpa login</span>
+            </p>
         </div>
 
         <form id="loginForm">
-            <input type="hidden" id="selectedRole" name="role" value="buyer">
-
-            <div class="form-group">
-                <label class="form-label">Pilih Akses Role</label>
-                <div class="role-grid">
-                    <div id="roleBuyer" class="role-card active" onclick="selectRole('buyer')">
-                        <div style="font-size: 18px;">🧑</div>
-                        <div class="title" style="font-size: 12px; font-weight:700; margin-top:4px;">Buyer</div>
-                    </div>
-                    <div id="roleSeller" class="role-card" onclick="selectRole('seller')">
-                        <div style="font-size: 18px;">🏪</div>
-                        <div class="title" style="font-size: 12px; font-weight:700; margin-top:4px;">Seller</div>
-                    </div>
-                    <div id="roleAdmin" class="role-card" onclick="selectRole('admin')">
-                        <div style="font-size: 18px;">🛡️</div>
-                        <div class="title" style="font-size: 12px; font-weight:700; margin-top:4px;">Admin</div>
-                    </div>
-                </div>
-            </div>
-
             <div class="form-group">
                 <label class="form-label">Username / Email</label>
                 <div class="input-wrapper">
-                    <input type="text" name="username" placeholder="Masukkan nama atau email anda" required>
+                    <input type="text" name="identifier" placeholder="Masukkan nama atau email anda" required>
                 </div>
             </div>
 
@@ -63,23 +46,46 @@
 </div>
 
 <script>
-function selectRole(role) {
-    document.getElementById('selectedRole').value = role;
-    document.querySelectorAll('.role-card').forEach(card => card.classList.remove('active'));
-    if (role === 'buyer') document.getElementById('roleBuyer').classList.add('active');
-    if (role === 'seller') document.getElementById('roleSeller').classList.add('active');
-    if (role === 'admin') document.getElementById('roleAdmin').classList.add('active');
-}
-
 document.getElementById('loginForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const formData = new FormData(this);
-    fetch('/auth/login.php', { method: 'POST', body: formData })
-    .then(res => res.json())
-    .then(data => {
-        if (data.success) { alert(data.message); window.location.href = data.redirect; }
-        else { alert("Gagal Masuk: " + data.message); }
-    }).catch(() => alert("Koneksi backend belum aktif, HTML/CSS sukses teruji!"));
+
+    fetch('../Backend/auth/login.php', { 
+        method: 'POST', 
+        body: formData 
+    })
+    .then(async res => {
+        // Ambil data dari server sebagai teks mentah dulu (jangan langsung di-JSON-kan)
+        const text = await res.text();
+        
+        try {
+            // Coba terjemahkan ke JSON
+            const data = JSON.parse(text);
+            return { ok: res.ok, data: data };
+        } catch (err) {
+            // JIKA GAGAL: Jangan tampilkan error JSON ke user! 
+            // Kita print error aslinya di console untuk developer, dan tampilkan alert ramah ke user
+            console.error("Pesan Error Asli dari PHP:\n", text);
+            throw new Error("Terjadi gangguan pada server. Silakan coba lagi nanti.");
+        }
+    })
+    .then(result => {
+        const data = result.data;
+        if (result.ok && data.success) { 
+            alert(data.message);
+            // Arahkan sesuai role
+            if (data.role === 'seller' || data.role === 'admin') {
+                window.location.href = 'admin-home.html';
+            } else {
+                window.location.href = 'Marketplace-main.html';
+            }
+        } else { 
+            alert("Gagal Masuk: " + (data.message || "Username/Password salah.")); 
+        }
+    })
+    .catch(error => {
+        alert(error.message); // Tampilkan alert "Terjadi gangguan pada server"
+    });
 });
 </script>
 </body>
