@@ -294,6 +294,7 @@ body {
     color: var(--color-primary);
     border: 1px solid rgba(74, 222, 128, 0.2);
 }
+
 /* ==========================================================================
    ADDITIONAL COMPONENT: PROFILE BOX LAYOUT
    ========================================================================== */
@@ -304,7 +305,6 @@ body {
     align-items: flex-start;
 }
 
-/* Sisi Kiri Kotak Foto Profil */
 .avatar-upload-container {
     width: 200px;
     display: flex;
@@ -338,7 +338,6 @@ body {
 }
 .btn-upload-photo:hover { background: var(--color-primary-hover); }
 
-/* Sisi Kanan Baris Data Grid */
 .profile-data-grid {
     flex: 1;
     display: grid;
@@ -367,7 +366,6 @@ body {
     color: var(--color-text-silver);
 }
 
-/* Navbar Avatar Specific Wrapper */
 .nav-avatar-circle {
     width: 36px;
     height: 36px;
@@ -380,11 +378,10 @@ body {
     font-size: 16px;
     cursor: pointer;
 }
+
 /* ==========================================================================
    MARKETPLACE COMPONENT STYLES
    ========================================================================== */
-
-/* Susunan Kolom Utama Marketplace: Kiri (Filter) | Kanan (Konten Produk) */
 .marketplace-layout {
     display: grid;
     grid-template-columns: 240px 1fr;
@@ -394,7 +391,6 @@ body {
     margin: 0 auto;
 }
 
-/* Sidebar Filter (Kiri) */
 .filter-sidebar {
     background: #12141F;
     border-right: 1px solid var(--border-color);
@@ -419,7 +415,6 @@ body {
     color: var(--color-text-muted);
 }
 
-/* Kustom Checkbox & Radio Item Row */
 .filter-item-row {
     display: flex;
     align-items: center;
@@ -438,7 +433,6 @@ body {
 .rating-stars { color: #FBBF24; }
 .rarity-dot { width: 8px; height: 8px; border-radius: 2px; display: inline-block; }
 
-/* Filter Rentang Harga */
 .price-range-inputs {
     display: flex;
     align-items: center;
@@ -458,14 +452,12 @@ body {
 }
 .price-range-inputs input:focus { outline: none; }
 
-/* Sisi Konten Utama (Kanan) */
 .marketplace-main-content {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-/* Toolbar Atas: Pencarian & Dropdown Urutan */
 .marketplace-toolbar {
     display: flex;
     justify-content: space-between;
@@ -505,7 +497,6 @@ body {
     outline: none;
 }
 
-/* Wadah Tag Filter Aktif */
 .active-tags-container {
     display: flex;
     flex-wrap: wrap;
@@ -525,14 +516,12 @@ body {
     cursor: pointer;
 }
 
-/* GRID KARTU PRODUK (Otomatis Menyesuaikan Ukuran Layar) */
 .products-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 20px;
 }
 
-/* Desain Komponen Kartu Produk */
 .product-card {
     background: #1E2235;
     border-radius: 12px;
@@ -546,12 +535,10 @@ body {
     transform: translateY(-4px);
 }
 
-/* Efek Berpijar Berdasarkan Tingkat Kelangkaan (Rarity Glow) */
 .product-card.legendary { border-color: rgba(251, 191, 36, 0.4); box-shadow: 0px 0px 16px rgba(251, 191, 36, 0.12); }
 .product-card.epic { border-color: rgba(192, 132, 252, 0.4); }
 .product-card.rare { border-color: rgba(96, 165, 250, 0.3); }
 
-/* Bagian Atas Kartu (Visual Emoji) */
 .card-visual-header {
     height: 140px;
     background: #181B2A;
@@ -564,7 +551,6 @@ body {
 .product-card.epic .card-visual-header { background: linear-gradient(159deg, #150D20 0%, #1A0D30 100%); }
 .product-card.rare .card-visual-header { background: linear-gradient(159deg, #0D1420 0%, #0D1A30 100%); }
 
-/* Informasi Detail Kartu */
 .card-body {
     padding: 16px;
     display: flex;
@@ -600,7 +586,6 @@ body {
     font-size: 14px;
 }
 
-/* KOMPONEN PAGINATION */
 .pagination-container {
     display: flex;
     justify-content: center;
@@ -629,11 +614,10 @@ body {
     border-color: var(--color-primary);
     color: #F0F4FF;
 }
+
 /* ==========================================================================
    CHECKOUT & SHOPPING CART COMPONENT STYLES
    ========================================================================== */
-
-/* Induk Layout Utama: Kiri (Daftar Item) | Kanan (Ringkasan Pembayaran) */
 .checkout-layout {
     display: grid;
     grid-template-columns: 1fr 360px;
@@ -665,7 +649,6 @@ body {
     font-size: 14px;
 }
 
-/* Baris Item di Dalam Keranjang */
 .cart-item {
     background: #1E2235;
     border: 1px solid var(--border-color);
@@ -726,7 +709,6 @@ body {
     color: #EF4444;
 }
 
-/* Kotak Input Voucher / Promo */
 .promo-box {
     background: #181B2A;
     border: 1px solid rgba(74, 222, 128, 0.15);
@@ -752,7 +734,6 @@ body {
     outline: none;
 }
 
-/* Sidebar Ringkasan Pembayaran (Kanan) */
 .summary-sidebar {
     background: #1E2235;
     border: 1px solid var(--border-color);
@@ -797,7 +778,6 @@ body {
     font-weight: 700;
 }
 
-/* Widget Info Saldo Dompet */
 .balance-status-box {
     background: #181B2A;
     border: 1px solid rgba(251, 191, 36, 0.2);
@@ -836,18 +816,210 @@ body {
     font-weight: 700;
 }
 
-/* Responsif Mobile/Tablet untuk Checkout */
-@media (max-width: 992px) {
-    .checkout-layout {
-        grid-template-columns: 1fr;
-        gap: 24px;
-    }
+/* ==========================================================================
+   SELLER DASHBOARD COMPONENT STYLES
+   ========================================================================== */
+.seller-layout-container {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: calc(100vh - 64px);
 }
+
+.seller-sidebar {
+    background: var(--bg-panel);
+    border-right: 1px solid var(--border-color);
+    padding: 32px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.seller-profile-section { text-align: center; }
+
+.seller-avatar-large {
+    width: 80px;
+    height: 80px;
+    background: var(--bg-card);
+    border: 2px solid #60A5FA;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    margin: 0 auto 12px;
+}
+
+.seller-name {
+    color: var(--color-text-white);
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.seller-role {
+    color: #60A5FA;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.seller-divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: 24px 0;
+}
+
+.seller-menu-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.seller-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: var(--color-text-silver);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.seller-menu-item.active {
+    background: rgba(96, 165, 250, 0.1);
+    color: #60A5FA;
+    font-weight: 700;
+}
+
+.seller-menu-item:hover:not(.active) {
+    background: var(--bg-card);
+    color: var(--color-text-white);
+}
+
+.btn-logout-seller {
+    background: rgba(248, 113, 113, 0.1);
+    color: var(--color-text-error);
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    transition: background 0.2s;
+}
+
+.btn-logout-seller:hover { background: rgba(248, 113, 113, 0.2); }
+
+.seller-main-content { padding: 32px 40px; }
+
+.seller-content-header h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-text-white);
+}
+
+.seller-content-header p {
+    color: var(--color-text-silver);
+    font-size: 14px;
+    margin-top: 6px;
+}
+
+.seller-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin: 24px 0;
+}
+
+.seller-stat-box, .seller-seller-stat-box {
+    background: var(--bg-card-alt);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.seller-stat-icon { font-size: 32px; }
+
+.seller-stat-info, .seller-seller-stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.seller-stat-title {
+    color: var(--color-text-silver);
+    font-size: 12px;
+}
+
+.seller-stat-number {
+    color: var(--color-text-white);
+    font-size: 20px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 4px;
+}
+
+.seller-product-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.seller-item-card {
+    background: var(--bg-card-alt);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.seller-item-img {
+    width: 60px;
+    height: 60px;
+    background: var(--bg-card);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+}
+
+.seller-item-meta-data { flex: 1; }
+
+.seller-item-meta-data h5 {
+    color: var(--color-text-white);
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+.seller-item-meta-data p {
+    color: var(--color-text-silver);
+    font-size: 12px;
+}
+
+.seller-item-pricing {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.badge-status.stock-ok {
+    background: rgba(74, 222, 128, 0.1);
+    color: var(--color-primary);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
 /* ==========================================================================
    DASHBOARD LIVE EDIT & POPUP MODAL STYLES
    ========================================================================== */
-
-/* Tombol Aksi Edit Kecil di Sisi Kanan Card */
 .btn-edit-action {
     background: #181B2A;
     border: 1px solid #252840;
@@ -865,118 +1037,101 @@ body {
     background: rgba(96, 165, 250, 0.05);
 }
 
-/* Lapisan Gelap Latar Belakang Modal PopUp */
-.dashboard-modal-overlay {
+.seller-modal-overlay {
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(5, 5, 10, 0.85);
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(4px);
-    display: none; /* Sembunyi sebelum tombol diklik */
+    display: none;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 100;
 }
 
-/* Box Kotak Dialog Modal Tengah */
-.dashboard-modal-content {
-    background: #1E2235;
-    border: 1px solid #252840;
-    border-radius: 14px;
+.seller-modal-content {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
     width: 100%;
-    max-width: 460px;
+    max-width: 480px;
     padding: 24px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-.dashboard-modal-content h4 {
-    color: #F0F4FF;
-    font-size: 16px;
+.seller-modal-content h4 {
+    color: var(--color-text-white);
+    font-size: 18px;
     font-weight: 700;
-    border-bottom: 1px solid #252840;
-    padding-bottom: 12px;
+    margin-bottom: 8px;
 }
 
-/* Penataan Form di PopUp */
-.modal-form-group {
+.seller-modal-form-group {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-}
-.modal-form-group label {
-    font-size: 12px;
-    color: #8892B0;
-}
-.modal-form-group input {
-    background: #181B2A;
-    border: 1px solid #252840;
-    border-radius: 8px;
-    padding: 10px 14px;
-    color: #F0F4FF;
-    font-size: 13px;
-    outline: none;
-    transition: border-color 0.2s;
-}
-.modal-form-group input:focus {
-    border-color: #60A5FA;
+    gap: 8px;
 }
 
-.modal-form-grid-2 {
+.seller-modal-form-group label {
+    color: var(--color-text-silver);
+    font-size: 12px;
+}
+
+.seller-modal-form-group input {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: var(--color-text-white);
+    outline: none;
+}
+
+.seller-modal-form-grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
 }
 
-/* Bagian Footer Tombol Modal */
-.modal-action-footer {
+.seller-modal-action-footer {
     display: flex;
     justify-content: flex-end;
     gap: 12px;
-    margin-top: 12px;
+    margin-top: 16px;
     padding-top: 16px;
-    border-top: 1px solid #252840;
+    border-top: 1px solid var(--border-color);
 }
 
-.btn-cancel {
+.btn-modal-cancel {
     background: transparent;
-    border: 1px solid #252840;
-    color: #8892B0;
+    border: 1px solid var(--border-color);
+    color: var(--color-text-silver);
     padding: 8px 16px;
     border-radius: 6px;
-    font-size: 13px;
     cursor: pointer;
 }
-.btn-cancel:hover { background: rgba(255,255,255,0.02); }
 
-.btn-submit-save {
-    background: #60A5FA;
+.btn-modal-submit {
+    background: var(--color-primary);
     border: none;
-    color: #0A0A0F;
-    padding: 8px 18px;
-    border-radius: 6px;
-    font-size: 13px;
+    color: #000;
     font-weight: 700;
-    cursor: pointer;
-}
-.btn-submit-save:hover { background: #3B82F6; }
-
-.btn-delete-item {
-    background: rgba(239, 68, 68, 0.05);
-    border: 1px solid rgba(239, 68, 68, 0.15);
-    color: #EF4444;
-    padding: 8px 14px;
+    padding: 8px 16px;
     border-radius: 6px;
-    font-size: 12px;
     cursor: pointer;
-    transition: all 0.2s;
 }
-.btn-delete-item:hover { background: rgba(239, 68, 68, 0.15); }
-.btn-modal-delete:hover { background: rgba(239, 68, 68, 0.15); }
+
+.btn-modal-delete {
+    background: rgba(248, 113, 113, 0.1);
+    color: var(--color-text-error);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
 
 /* ==========================================================================
-   8. RESPONSIVE MEDIA QUERIES
+   RESPONSIVE MEDIA QUERIES
    ========================================================================== */
 @media (max-width: 992px) {
     .checkout-layout { grid-template-columns: 1fr; gap: 24px; }

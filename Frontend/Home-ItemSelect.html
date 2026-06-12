@@ -5,21 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CraftBazaar - Detail Item</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .item-detail-layout { display: grid; grid-template-columns: 380px 1fr; gap: 40px; padding: 32px 40px; max-width: 1400px; margin: 0 auto; }
-        .item-image-box { background: #1E2235; border-radius: 16px; border: 1px solid #2E3354; height: 300px; display: flex; align-items: center; justify-content: center; font-size: 110px; position: relative; overflow: hidden; }
-        .item-image-box::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 80% at 50% 40%, rgba(74,222,128,0.12) 0%, transparent 65%); }
-        .review-card { background: #181B2A; border: 1px solid #252840; border-radius: 10px; padding: 16px; margin-bottom: 12px; }
-        .breadcrumb { font-size: 12px; color: #4A5568; padding: 12px 40px; border-bottom: 1px solid #252840; }
-        .breadcrumb span { color: #F0F4FF; }
-        .stat-box { background: #181B2A; border: 1px solid #252840; border-radius: 10px; padding: 14px 16px; margin-top: 12px; }
-    </style>
 </head>
-<body>
+<body style="background: #0A0A0F; color: #F0F4FF; font-family: 'Space Grotesk', sans-serif;">
 
 <nav class="main-navbar">
-    <div class="nav-logo" onclick="window.location.href='Marketplace-main.html'">
-        <span>⚔ Craft</span><span style="color:var(--color-text-rare);">Bazaar</span>
+    <div class="nav-logo" onclick="window.location.href='Marketplace-main.html'" style="cursor: pointer;">
+        <span>⚔ Craft</span><span style="color: var(--color-text-rare);">Bazaar</span>
     </div>
     <div class="nav-links">
         <a href="#" id="navAkun">Akun</a>
@@ -28,166 +19,120 @@
     <div class="nav-user-zone" id="navUserZone"></div>
 </nav>
 
-<div class="breadcrumb">
-    <a href="Marketplace-main.html" style="color:#4A5568;text-decoration:none;">Marketplace</a> /
-    <span id="breadItem">Loading...</span>
-</div>
+<div style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
+    <a href="Marketplace-main.html" style="color: #4ADE80; text-decoration: none; font-size: 14px; display: inline-block; margin-bottom: 25px; font-family: 'JetBrains Mono', monospace;">
+        ← Kembali ke Marketplace
+    </a>
 
-<div class="item-detail-layout" id="detailLayout" style="display:none;">
-    <!-- Kolom Kiri: Gambar -->
-    <div>
-        <div class="item-image-box" id="itemEmoji">📦</div>
-        <div style="margin-top:16px;display:flex;flex-direction:column;gap:8px;">
-            <div class="stat-box">
-                <div style="font-size:10px;color:#4A5568;font-family:'JetBrains Mono',monospace;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Item Info</div>
-                <div id="itemStats" style="display:flex;flex-direction:column;gap:4px;font-size:12px;color:#8892B0;"></div>
-            </div>
+    <div id="detailContainer">
+        <div style="text-align:center; padding:60px; color:#4A5568;">
+            <p>Memuat detail item...</p>
         </div>
     </div>
-
-    <!-- Kolom Kanan: Detail -->
-    <div>
-        <div id="categoryLabel" style="font-size:11px;color:#4A5568;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:1px;"></div>
-        <h1 id="itemName" style="font-size:24px;font-weight:700;color:#F0F4FF;margin:8px 0;"></h1>
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-            <span id="rarityBadge" class="mono-badge"></span>
-            <span id="ratingStars" style="color:#FBBF24;"></span>
-            <span id="soldCount" style="color:#4ADE80;font-size:12px;"></span>
-            <span id="stockInfo" style="color:#4A5568;font-size:12px;"></span>
-        </div>
-
-        <div id="itemPrice" style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:#4ADE80;margin-bottom:16px;"></div>
-
-        <!-- Seller Card -->
-        <div class="stat-box" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-            <div style="display:flex;align-items:center;gap:12px;">
-                <span style="font-size:28px;">👨‍💻</span>
-                <div>
-                    <div id="sellerName" style="font-size:13px;font-weight:700;color:#F0F4FF;"></div>
-                    <div id="sellerBio" style="font-size:11px;color:#4A5568;margin-top:2px;"></div>
-                </div>
-            </div>
-        </div>
-
-        <div id="itemDesc" style="color:#8892B0;font-size:13px;line-height:1.7;margin-bottom:20px;"></div>
-
-        <!-- Action Buttons -->
-        <div style="display:flex;gap:12px;margin-bottom:24px;">
-            <button class="btn-primary" onclick="addToCart()" style="flex:1;padding:13px;font-size:13px;border-radius:8px;" id="btnCart">
-                🛒 Tambah ke Cart
-            </button>
-            <button class="btn-secondary" onclick="addToCart(true)" style="flex:1;padding:13px;font-size:13px;border-radius:8px;" id="btnBuy">
-                ⚡ Beli Langsung
-            </button>
-        </div>
-
-        <!-- Reviews -->
-        <div style="border-top:1px solid #252840;padding-top:20px;">
-            <h3 style="font-size:15px;font-weight:700;margin-bottom:16px;">Ulasan Pembeli</h3>
-            <div id="reviewsContainer"></div>
-        </div>
-    </div>
-</div>
-
-<div id="loadingState" style="text-align:center;padding:80px;color:#4A5568;">
-    <span class="spinner"></span>
-    <p style="margin-top:12px;">Memuat detail item...</p>
 </div>
 
 <script src="assets/app.js"></script>
 <script>
-const RARITY_COLORS = {
-    legendary: { badge: '#FBBF24', border: '#92400E', bg: 'rgba(251,191,36,0.08)' },
-    epic:      { badge: '#C084FC', border: '#6B21A8', bg: 'rgba(192,132,252,0.08)' },
-    rare:      { badge: '#60A5FA', border: '#1E40AF', bg: 'rgba(96,165,250,0.08)' },
-    uncommon:  { badge: '#4ADE80', border: '#166534', bg: 'rgba(74,222,128,0.08)' },
-    common:    { badge: '#94A3B8', border: '#475569', bg: 'rgba(148,163,184,0.08)' },
+const RARITY_EMOJI = {
+    legendary: '⭐', epic: '💎', rare: '🔹', uncommon: '🌿', common: '📦'
 };
-const RARITY_EMOJI = { legendary:'⭐',epic:'💎',rare:'🔹',uncommon:'🌿',common:'📦' };
 
-let currentItem = null;
-
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
     renderNavbar();
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('id');
-    if (!id) { window.location.href = 'Marketplace-main.html'; return; }
-    await fetchItem(id);
+    fetchItemDetail();
 });
 
-async function fetchItem(id) {
-    const { data } = await safeFetch(API.itemDetail + '?id=' + id);
-    document.getElementById('loadingState').style.display = 'none';
+async function fetchItemDetail() {
+    const container = document.getElementById('detailContainer');
+    const urlParams = new URLSearchParams(window.location.search);
+    const itemId = urlParams.get('id');
 
-    if (!data.success) {
-        document.getElementById('detailLayout').style.display = 'none';
-        document.getElementById('loadingState').innerHTML = '<div class="empty-state"><div class="icon">❌</div><p>Item tidak ditemukan.</p><a href="Marketplace-main.html" style="color:var(--color-primary);">← Kembali ke Marketplace</a></div>';
-        document.getElementById('loadingState').style.display = 'block';
+    if (!itemId) {
+        showError("ID Item tidak valid atau tidak ditemukan di URL.");
+        return;
+    }
+
+    // Mengambil data detail item melalui API Backend
+    const { data } = await safeFetch(`${API.itemDetail}?id=${itemId}`);
+
+    if (!data || !data.success || !data.data) {
+        showError("Item tidak ditemukan. Pastikan data di database sudah sesuai.");
         return;
     }
 
     const item = data.data;
-    currentItem = item;
+    
+    // Konfigurasi warna tag berdasarkan tingkat kelangkaan (rarity)
+    const rarityColors = {
+        legendary: { badge: '#FBBF24', border: '#92400E' },
+        epic:      { badge: '#C084FC', border: '#6B21A8' },
+        rare:      { badge: '#60A5FA', border: '#1E40AF' },
+        uncommon:  { badge: '#4ADE80', border: '#166534' },
+        common:    { badge: '#94A3B8', border: '#475569' },
+    };
+    const rc = rarityColors[item.rarity] || rarityColors.common;
 
-    document.title = `CraftBazaar — ${item.name}`;
-    document.getElementById('breadItem').textContent = item.name;
+    container.innerHTML = `
+        <div style="display: flex; gap: 40px; background: #12141F; border: 1px solid #252840; padding: 30px; border-radius: 12px; flex-wrap: wrap;">
+            
+            <div style="flex: 1; min-width: 300px; background: #1E2235; height: 350px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 120px; border: 1px solid #252840;">
+                ${RARITY_EMOJI[item.rarity] || '📦'}
+            </div>
 
-    const rc = RARITY_COLORS[item.rarity] || RARITY_COLORS.common;
+            <div style="flex: 1.5; min-width: 300px; display: flex; flex-direction: column; gap: 16px;">
+                <div style="display: flex; gap: 12px; align-items: center;">
+                    <span class="mono-badge" style="color:${rc.badge}; background:${rc.badge}20; border-color:${rc.border}; text-transform:uppercase; font-size: 11px;">
+                        ${item.rarity}
+                    </span>
+                    <span style="color: #8892B0; font-size: 14px;">★ ${parseFloat(item.avg_rating || 0).toFixed(1)}</span>
+                    <span style="color: #4A5568; font-size: 14px;">| Terjual: ${item.total_sold || 0}</span>
+                </div>
 
-    document.getElementById('itemEmoji').innerHTML = `<div style="position:relative;z-index:1;font-size:100px;">${RARITY_EMOJI[item.rarity] || '📦'}</div>`;
-    document.getElementById('categoryLabel').textContent = `${item.category_name} · ${item.rarity}`;
-    document.getElementById('itemName').textContent  = item.name;
-    document.getElementById('itemPrice').textContent = fRupiah(item.price);
-    document.getElementById('itemDesc').textContent  = item.description || 'Tidak ada deskripsi.';
+                <h1 style="color: #F0F4FF; margin: 0; font-size: 32px; font-weight: 700;">${item.name}</h1>
+                <div style="color: #8892B0; font-size: 14px;">
+                    Dibuat oleh <span style="color: #4ADE80; font-weight: bold;">${item.seller_name}</span> 
+                    dalam kategori <span style="color: #FBBF24;">${item.category_name}</span>
+                </div>
+                
+                <div style="border-top: 1px solid #252840; border-bottom: 1px solid #252840; padding: 16px 0; color: #8892B0; font-size: 15px; line-height: 1.6; min-height: 100px;">
+                    ${item.description || 'Tidak ada deskripsi tersedia untuk produk ini.'}
+                </div>
 
-    const rb = document.getElementById('rarityBadge');
-    rb.textContent = item.rarity.toUpperCase();
-    rb.style.cssText = `color:${rc.badge};background:${rc.bg};border-color:${rc.border};box-shadow:0 0 8px ${rc.bg};`;
-
-    const stars = '★'.repeat(Math.round(item.avg_rating)) + '☆'.repeat(5 - Math.round(item.avg_rating));
-    document.getElementById('ratingStars').textContent = stars + ` (${parseFloat(item.avg_rating).toFixed(1)})`;
-    document.getElementById('soldCount').textContent   = `✓ ${item.total_sold} terjual`;
-    document.getElementById('stockInfo').textContent   = `Stok: ${item.stock}`;
-    document.getElementById('sellerName').textContent  = item.seller_name;
-    document.getElementById('sellerBio').textContent   = item.seller_bio || '⭐ Verified Seller';
-
-    document.getElementById('itemStats').innerHTML = `
-        <div>📦 Kategori: <strong style="color:#F0F4FF;">${item.category_name}</strong></div>
-        <div>💎 Rarity: <strong style="color:${rc.badge};">${item.rarity}</strong></div>
-        <div>📅 Dijual sejak: <strong style="color:#F0F4FF;">${new Date(item.created_at).toLocaleDateString('id-ID')}</strong></div>
-        <div>🏪 Seller: <strong style="color:#F0F4FF;">${item.seller_name}</strong></div>
-    `;
-
-    renderReviews(data.reviews || []);
-    document.getElementById('detailLayout').style.display = 'grid';
-}
-
-function renderReviews(reviews) {
-    const c = document.getElementById('reviewsContainer');
-    if (!reviews.length) {
-        c.innerHTML = '<div style="color:#4A5568;font-size:13px;text-align:center;padding:20px;">Belum ada ulasan untuk item ini.</div>';
-        return;
-    }
-    c.innerHTML = reviews.map(r => `
-        <div class="review-card">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                <div style="display:flex;align-items:center;gap:8px;">
-                    <span style="font-size:20px;">🧑</span>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 20px;">
                     <div>
-                        <div style="font-size:13px;font-weight:700;color:#F0F4FF;">${r.username}</div>
-                        <div style="color:#FBBF24;font-size:13px;">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
+                        <div style="color: #4A5568; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-family: 'JetBrains Mono', monospace;">Harga Item</div>
+                        <div style="color: #4ADE80; font-size: 28px; font-family: 'JetBrains Mono', monospace; font-weight: 700; margin-top: 4px;">${fRupiah(item.price)}</div>
+                    </div>
+                    
+                    <div style="text-align: right;">
+                        <div style="color: #4A5568; font-size: 12px; margin-bottom: 8px;">Stok Tersedia: <span style="color: #F0F4FF; font-weight: bold;">${item.stock}</span></div>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <input type="number" id="qtyInput" value="1" min="1" max="${item.stock}" style="width: 60px; background: #181B2A; border: 1px solid #252840; color: #F0F4FF; padding: 10px; border-radius: 6px; text-align: center; font-family: 'JetBrains Mono', monospace;">
+                            <button class="btn-primary" onclick="addToCart(${item.id})" style="padding: 10px 20px; border-radius: 6px; font-weight: 700; font-size: 13px;">
+                                🛒 + Keranjang
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <span style="font-size:11px;color:#4A5568;">${new Date(r.created_at).toLocaleDateString('id-ID')}</span>
+
             </div>
-            <div style="color:#8892B0;font-size:13px;line-height:1.6;">${r.comment || '-'}</div>
         </div>
-    `).join('');
+    `;
 }
 
-async function addToCart(buyNow = false) {
-    if (!currentItem) return;
+function showError(msg) {
+    document.getElementById('detailContainer').innerHTML = `
+        <div class="empty-state" style="text-align: center; padding: 60px 0; background: #12141F; border: 1px solid #252840; border-radius: 12px;">
+            <div class="icon" style="font-size: 48px; margin-bottom: 16px;">❌</div>
+            <p style="color: #8892B0; font-size: 16px; margin: 0 0 20px 0;">${msg}</p>
+            <a href="Marketplace-main.html" class="btn-primary" style="display: inline-block; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-size: 13px; font-weight: bold;">
+                Kembali ke Marketplace
+            </a>
+        </div>
+    `;
+}
 
+async function addToCart(itemId) {
     const user = await getUser();
     if (!user) {
         toast('Silakan login terlebih dahulu.', 'error');
@@ -195,23 +140,24 @@ async function addToCart(buyNow = false) {
         return;
     }
     if (user.role !== 'buyer') {
-        toast('Hanya akun Buyer yang bisa membeli.', 'error');
+        toast('Hanya akun dengan akses Buyer yang bisa menambah ke cart.', 'error');
         return;
     }
 
+    const qty = parseInt(document.getElementById('qtyInput').value) || 1;
+
     const fd = new FormData();
-    fd.append('item_id',  currentItem.id);
-    fd.append('quantity', 1);
+    fd.append('item_id',  itemId);
+    fd.append('quantity', qty);
 
     const { data } = await safeFetch(API.cartAdd, { method: 'POST', body: fd });
 
     if (data.success) {
-        toast('Berhasil ditambahkan ke keranjang! 🛒');
-        if (_cachedUser) _cachedUser.cart_count = data.cart_count;
+        toast('Item berhasil ditambahkan ke keranjang! 🛒');
+        if (_cachedUser) { _cachedUser.cart_count = data.cart_count; }
         renderNavbar();
-        if (buyNow) setTimeout(() => window.location.href = 'Home-Checkout.html', 600);
     } else {
-        toast(data.message || 'Gagal menambahkan.', 'error');
+        toast(data.message || 'Gagal menambahkan ke keranjang.', 'error');
     }
 }
 </script>
