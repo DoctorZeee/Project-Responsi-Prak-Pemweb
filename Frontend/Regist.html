@@ -12,110 +12,126 @@
     <div class="auth-form-side">
         <div class="auth-header">
             <h1>Buat Akun Baru</h1>
-            <p>Sudah mendaftar? <span onclick="window.location.href='Signin.html'" style="cursor: pointer; color: var(--color-primary);">Masuk di sini →</span></p>
+            <p>Sudah mendaftar? <span onclick="window.location.href='Signin.html'" style="cursor:pointer;color:var(--color-primary);">Masuk di sini →</span></p>
         </div>
 
-        <form id="registerForm">
-            <input type="hidden" name="role" id="roleInput" value="buyer">
+        <div id="alertBox" style="display:none;background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.3);border-radius:8px;padding:10px 14px;font-size:13px;color:#F87171;margin-bottom:14px;white-space:pre-line;"></div>
 
-            <div class="form-row">
-                <div class="form-group" style="flex:1;">
-                    <label class="form-label">Username</label>
-                    <div class="input-wrapper">
-                        <input type="text" name="username" placeholder="steve_builder" required>
-                    </div>
-                </div>
-                <div class="form-group" style="flex:1;">
-                    <label class="form-label">Email</label>
-                    <div class="input-wrapper">
-                        <input type="email" name="email" placeholder="steve@craft.com" required>
-                    </div>
-                </div>
-            </div>
+        <input type="hidden" id="roleInput" value="buyer">
 
-            <div class="form-group">
-                <label class="form-label">Password</label>
+        <div class="form-row">
+            <div class="form-group" style="flex:1;">
+                <label class="form-label">Username</label>
                 <div class="input-wrapper">
-                    <input type="password" name="password" placeholder="Minimal 6 karakter" required>
+                    <input type="text" id="username" placeholder="steve_builder" required>
                 </div>
             </div>
-
-            <div class="form-group">
-                <label class="form-label">Konfirmasi Password</label>
+            <div class="form-group" style="flex:1;">
+                <label class="form-label">Email</label>
                 <div class="input-wrapper">
-                    <input type="password" name="confirm_password" placeholder="Ulangi password anda" required>
+                    <input type="email" id="email" placeholder="steve@craft.com" required>
                 </div>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label class="form-label">Mendaftar Sebagai</label>
-                <div class="role-grid" style="grid-template-columns: 1fr 1fr;">
-                    <div id="regBuyer" class="role-card active" onclick="setRegRole('buyer')">
-                        <div style="font-size: 20px;">🧑</div>
-                        <div class="title" style="font-weight:700; font-size:13px; margin-top:4px;">Buyer</div>
-                    </div>
-                    <div id="regSeller" class="role-card" onclick="setRegRole('seller')">
-                        <div style="font-size: 20px;">🏪</div>
-                        <div class="title" style="font-weight:700; font-size:13px; margin-top:4px;">Seller</div>
-                    </div>
+        <div class="form-group">
+            <label class="form-label">Password</label>
+            <div class="input-wrapper">
+                <input type="password" id="password" placeholder="Minimal 6 karakter" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Konfirmasi Password</label>
+            <div class="input-wrapper">
+                <input type="password" id="confirm_password" placeholder="Ulangi password" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Daftar Sebagai</label>
+            <div class="role-grid" style="grid-template-columns:1fr 1fr;">
+                <div id="regBuyer" class="role-card active" onclick="setRole('buyer')">
+                    <div style="font-size:24px;">🧑</div>
+                    <div class="title" style="font-weight:700;font-size:13px;margin-top:6px;">Buyer</div>
+                    <div style="font-size:11px;color:#4A5568;margin-top:3px;">Beli item keren</div>
+                </div>
+                <div id="regSeller" class="role-card" onclick="setRole('seller')">
+                    <div style="font-size:24px;">🏪</div>
+                    <div class="title" style="font-weight:700;font-size:13px;margin-top:6px;">Seller</div>
+                    <div style="font-size:11px;color:#4A5568;margin-top:3px;">Jual kreasi kamu</div>
                 </div>
             </div>
+        </div>
 
-            <button type="submit" class="btn-submit">🎮 Daftarkan Akun</button>
-        </form>
+        <button class="btn-submit" id="btnRegister" onclick="doRegister()">🎮 Buat Akun</button>
     </div>
 
     <div class="auth-banner">
-        <div style="font-family: 'Press Start 2P'; font-size: 18px;">
-            <span style="color: var(--color-primary);">⚔ Craft</span><span style="color: var(--color-text-rare);">Bazaar</span>
+        <div style="font-family:'Press Start 2P';font-size:18px;text-align:center;">
+            <span style="color:var(--color-primary);">⚔ Craft</span><span style="color:var(--color-text-rare);">Bazaar</span>
         </div>
-        <p style="color: var(--color-text-muted); font-size: 13px; margin-top: 8px;">Minecraft Item & Skin Marketplace</p>
+        <p style="color:var(--color-text-muted);font-size:13px;margin-top:10px;text-align:center;">Minecraft Item &amp; Skin Marketplace</p>
+        <div style="margin-top:32px;color:#4A5568;font-size:12px;text-align:center;line-height:1.8;">
+            ✓ Ribuan item Minecraft<br>
+            ✓ Skin &amp; Resource Pack unik<br>
+            ✓ Seller terverifikasi<br>
+            ✓ Transaksi aman
+        </div>
     </div>
 </div>
 
+<script src="assets/app.js"></script>
 <script>
-// Fungsi untuk memilih role visual dan mengganti value hidden input
-function setRegRole(role) {
+function setRole(role) {
     document.getElementById('roleInput').value = role;
-    document.querySelectorAll('.role-card').forEach(card => card.classList.remove('active'));
-    if(role === 'buyer') document.getElementById('regBuyer').classList.add('active');
-    if(role === 'seller') document.getElementById('regSeller').classList.add('active');
+    document.querySelectorAll('.role-card').forEach(c => c.classList.remove('active'));
+    document.getElementById(role === 'buyer' ? 'regBuyer' : 'regSeller').classList.add('active');
 }
 
-// Fungsi Submit Pendaftaran
-document.getElementById('registerForm').addEventListener('submit', function(e) {
-    e.preventDefault(); // Mencegah reload halaman
-    
-    const formData = new FormData(this);
-    
-    // Validasi dasar di sisi frontend
-    if(formData.get('password') !== formData.get('confirm_password')) {
-        alert("Error: Password dan konfirmasi tidak sesuai!");
+async function doRegister() {
+    const alertBox = document.getElementById('alertBox');
+    const btn      = document.getElementById('btnRegister');
+
+    const username         = document.getElementById('username').value.trim();
+    const email            = document.getElementById('email').value.trim();
+    const password         = document.getElementById('password').value;
+    const confirm_password = document.getElementById('confirm_password').value;
+    const role             = document.getElementById('roleInput').value;
+
+    alertBox.style.display = 'none';
+
+    if (password !== confirm_password) {
+        alertBox.textContent = 'Password dan konfirmasi tidak cocok.';
+        alertBox.style.display = 'block';
         return;
     }
-    
-    // Tembak API Register Backend
-    fetch('../Backend/auth/register.php', { method: 'POST', body: formData })
-    .then(res => {
-        if (!res.ok) { return res.json().then(err => { throw err; }); }
-        return res.json();
-    })
-    .then(data => {
-        if(data.success) { 
-            alert("Berhasil Mendaftar! Silakan login untuk melanjutkan."); 
-            // Arahkan ke halaman login
-            window.location.href = 'Signin.html'; 
-        }
-    })
-    .catch(error => {
-        // Menangkap error validasi dari backend (seperti email sudah dipakai, dll)
-        if (error.errors && error.errors.length > 0) {
-            alert("Gagal: \n- " + error.errors.join("\n- "));
-        } else {
-            alert("Gagal Mendaftar: " + (error.message || "Kesalahan pada server"));
-        }
-    });
-});
+
+    btn.disabled  = true;
+    btn.innerHTML = '<span class="spinner"></span> Memproses...';
+
+    const fd = new FormData();
+    fd.append('username',         username);
+    fd.append('email',            email);
+    fd.append('password',         password);
+    fd.append('confirm_password', confirm_password);
+    fd.append('role',             role);
+
+    const { ok, data } = await safeFetch(API.register, { method: 'POST', body: fd });
+
+    btn.disabled  = false;
+    btn.innerHTML = '🎮 Buat Akun';
+
+    if ((ok || data.success) && data.success) {
+        _cachedUser = null;
+        toast('Registrasi berhasil! Mengalihkan...');
+        setTimeout(() => window.location.href = data.redirect, 700);
+    } else {
+        const errMsg = data.errors ? data.errors.join('\n') : (data.message || 'Registrasi gagal.');
+        alertBox.textContent = errMsg;
+        alertBox.style.display = 'block';
+    }
+}
 </script>
 </body>
 </html>

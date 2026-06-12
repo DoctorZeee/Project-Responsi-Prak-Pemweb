@@ -10,11 +10,11 @@
 
 <nav class="main-navbar">
     <div class="nav-logo" onclick="window.location.href='Marketplace-main.html'">
-        <span>⚔ Craft</span><span style="color: var(--color-text-rare);">Bazaar</span>
+        <span>⚔ Craft</span><span style="color:var(--color-text-rare);">Bazaar</span>
     </div>
     <div class="nav-links">
         <a href="#" id="navAkun">Akun</a>
-        <a href="Marketplace-main.html" class="active">Marketplace</a> 
+        <a href="Marketplace-main.html" class="active">Marketplace</a>
     </div>
     <div class="nav-user-zone" id="navUserZone"></div>
 </nav>
@@ -23,35 +23,50 @@
     <aside class="filter-sidebar">
         <div class="filter-group">
             <h4 class="filter-title">Kategori</h4>
-            <label class="filter-item-row"><input type="checkbox" checked> Semua Item</label>
-            <label class="filter-item-row"><input type="checkbox"> ⚔️ Weapons</label>
-            <label class="filter-item-row"><input type="checkbox"> 🛡️ Armor</label>
-            <label class="filter-item-row"><input type="checkbox"> 🏗️ Building</label>
-            <label class="filter-item-row"><input type="checkbox"> 🎨 Skins</label>
-            <label class="filter-item-row"><input type="checkbox"> 📦 Resource Pack</label>
-            <label class="filter-item-row"><input type="checkbox"> 🍎 Consumable</label>
+            <label class="filter-item-row">
+                <input type="radio" name="category" value="" checked onchange="applyFilter()"> Semua Item
+            </label>
+            <div id="categoryList"></div>
         </div>
 
         <div class="filter-group">
             <h4 class="filter-title">Rarity</h4>
-            <label class="filter-item-row"><span class="rarity-dot" style="background: #94A3B8;"></span> Common</label>
-            <label class="filter-item-row"><span class="rarity-dot" style="background: #4ADE80;"></span> Uncommon</label>
-            <label class="filter-item-row"><span class="rarity-dot" style="background: #60A5FA;"></span> Rare</label>
-            <label class="filter-item-row"><span class="rarity-dot" style="background: #C084FC;"></span> Epic</label>
-            <label class="filter-item-row"><span class="rarity-dot" style="background: #FBBF24;"></span> Legendary</label>
+            <label class="filter-item-row">
+                <input type="radio" name="rarity" value="" checked onchange="applyFilter()"> Semua
+            </label>
+            <label class="filter-item-row">
+                <input type="radio" name="rarity" value="legendary" onchange="applyFilter()">
+                <span class="rarity-dot" style="background:#FBBF24;"></span> Legendary
+            </label>
+            <label class="filter-item-row">
+                <input type="radio" name="rarity" value="epic" onchange="applyFilter()">
+                <span class="rarity-dot" style="background:#C084FC;"></span> Epic
+            </label>
+            <label class="filter-item-row">
+                <input type="radio" name="rarity" value="rare" onchange="applyFilter()">
+                <span class="rarity-dot" style="background:#60A5FA;"></span> Rare
+            </label>
+            <label class="filter-item-row">
+                <input type="radio" name="rarity" value="uncommon" onchange="applyFilter()">
+                <span class="rarity-dot" style="background:#4ADE80;"></span> Uncommon
+            </label>
+            <label class="filter-item-row">
+                <input type="radio" name="rarity" value="common" onchange="applyFilter()">
+                <span class="rarity-dot" style="background:#94A3B8;"></span> Common
+            </label>
         </div>
 
         <div class="filter-group">
-            <h4 class="filter-title">Harga</h4>
+            <h4 class="filter-title">Harga (Rp)</h4>
             <div class="price-range-inputs">
-                <input type="text" value="0">
-                <span style="color: #F0F4FF; padding: 0 4px;">–</span>
-                <input type="text" value="200.000">
+                <input type="number" id="minPrice" value="" placeholder="Min" oninput="debounceFilter()">
+                <span style="color:#F0F4FF;padding:0 4px;">–</span>
+                <input type="number" id="maxPrice" value="" placeholder="Max" oninput="debounceFilter()">
             </div>
         </div>
 
-        <button class="btn-primary" style="padding: 8px 12px; font-size: 11px; font-weight: 700; width: 100%; border-radius: 6px; margin-top: 10px;">
-            Terapkan Filter
+        <button class="btn-primary" onclick="resetFilter()" style="padding:8px;font-size:11px;font-weight:700;width:100%;border-radius:6px;margin-top:4px;background:#181B2A;border:1px solid #252840;color:#8892B0;">
+            Reset Filter
         </button>
     </aside>
 
@@ -59,196 +74,188 @@
         <div class="marketplace-toolbar">
             <div class="search-input-wrapper">
                 <span>🔍</span>
-                <input type="text" placeholder="Cari item, skin, resource pack...">
+                <input type="text" id="searchInput" placeholder="Cari item, skin, resource pack..." oninput="debounceFilter()">
             </div>
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <select class="sort-select">
-                    <option>Terpopuler</option>
-                    <option>Harga: Rendah ke Tinggi</option>
-                    <option>Terbaru</option>
+            <div style="display:flex;align-items:center;gap:12px;">
+                <select class="sort-select" id="sortSelect" onchange="applyFilter()">
+                    <option value="newest">Terbaru</option>
+                    <option value="popular">Terpopuler</option>
+                    <option value="rating">Rating Tertinggi</option>
+                    <option value="price_asc">Harga: Rendah ke Tinggi</option>
+                    <option value="price_desc">Harga: Tinggi ke Rendah</option>
                 </select>
+                <span id="totalCount" style="font-size:12px;color:#4A5568;white-space:nowrap;"></span>
             </div>
         </div>
 
-        <div class="products-grid" id="productContainer"></div>
+        <div id="productContainer" class="products-grid"></div>
+        <div id="pagination" class="pagination-container"></div>
     </main>
 </div>
 
+<script src="assets/app.js"></script>
 <script>
-// Variabel global untuk menyimpan data user yang sedang login
-let currentUser = null;
+let currentPage = 1;
+let debounceTimer;
 
-document.addEventListener("DOMContentLoaded", function() {
-    checkUserStatus();
+const RARITY_EMOJI = {
+    legendary: '⭐', epic: '💎', rare: '🔹', uncommon: '🌿', common: '📦'
+};
+const CAT_EMOJI = {
+    skin: '🧑', weapon: '⚔️', armor: '🛡️', building: '🏗️',
+    'resource-pack': '🎨', tools: '⛏️', food: '🍎', mob: '👾'
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    renderNavbar();
     fetchItems();
 });
 
-// 1. Memeriksa Status Autentikasi dan Mengatur Hak Akses Menu Akun & Navbar
-function checkUserStatus() {
-    fetch('/Project-Responsi-Prak-Pemweb/Backend/api/user_status.php')        
-      .then(res => res.json())
-        .then(data => {
-            const navAkun = document.getElementById('navAkun');
-            const navUserZone = document.getElementById('navUserZone');
-
-            if (data.logged_in) {
-                currentUser = data.user; // Simpan data user ke variabel global
-
-                // Mengatur Link Menu Akun sesuai dengan Role
-                navAkun.onclick = function(e) {
-                    e.preventDefault();
-                    if (currentUser.role === 'seller' || currentUser.role === 'admin') {
-                        window.location.href = 'admin-home.html';
-                    } else {
-                        window.location.href = 'Home-Profile.html';
-                    }
-                };
-
-                // Mengatur Tampilan Konten Navbar jika Sudah Login
-                let userZoneHTML = '';
-                if (currentUser.role === 'buyer') {
-                    // Hanya Tampilkan Saldo & Keranjang untuk Buyer
-                    userZoneHTML = `
-                        <div class="mono-badge" style="color: var(--color-text-rare); background: rgba(251, 191, 36, 0.08); border-color: rgba(251, 191, 36, 0.2);">
-                            💰 Rp 500.000
-                        </div>
-                        <div onclick="window.location.href='Home-Checkout.html'" style="color: #8892B0; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 4px;">
-                            🛒 Cart <span style="color: var(--color-primary); font-weight: 700;">(0)</span>
-                        </div>
-                    `;
-                } else {
-                    // Jika Seller / Admin, Tampilkan Badge Role di Navbar
-                    userZoneHTML = `
-                        <div class="mono-badge" style="color: #C084FC; background: rgba(192, 132, 252, 0.08); border-color: rgba(192, 132, 252, 0.2); text-transform: uppercase;">
-                            🛡️ ${currentUser.role}
-                        </div>
-                    `;
-                }
-                
-                // Tambahkan avatar dan nama user
-                userZoneHTML += `
-                    <div class="nav-avatar-circle" title="${currentUser.username}">🧑</div>
-                    <span style="font-size: 12px; color: #8892B0; cursor: pointer;" onclick="logout()">Logout</span>
-                `;
-                navUserZone.innerHTML = userZoneHTML;
-
-            } else {
-                // KONDISI BELUM LOGIN (GUEST)
-                currentUser = null;
-
-                // Jika menu Akun diklik saat belum login, arahkan ke halaman Signin
-                navAkun.onclick = function(e) {
-                    e.preventDefault();
-                    window.location.href = 'Signin.html';
-                };
-
-                // Tampilkan Tombol Masuk di Navbar
-                navUserZone.innerHTML = `
-                    <button class="btn-primary" onclick="window.location.href='Signin.html'" style="padding: 6px 12px; font-size: 12px; border-radius: 4px;">
-                        Masuk / Daftar
-                    </button>
-                `;
-            }
-        })
-        .catch(err => console.error("Gagal memeriksa status auth:", err));
+function debounceFilter() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => { currentPage = 1; applyFilter(); }, 420);
 }
 
-// 2. Mengambil Data Item dari Database
-function fetchItems() {
-    fetch('http://localhost/Praktikum_PBO/Project-Responsi-Prak-Pemweb/Backend/api/items.php')
-        .then(response => response.json())
-        .then(result => {
-            if(result.success) {
-                renderItems(result.data);
-            }
-        })
-        .catch(error => console.error("Error Fetching Items:", error));
+function applyFilter() {
+    currentPage = 1;
+    fetchItems();
 }
 
-// 3. Merender Tampilan Katalog Barang
+function resetFilter() {
+    document.querySelectorAll('input[name="category"]')[0].checked = true;
+    document.querySelectorAll('input[name="rarity"]')[0].checked   = true;
+    document.getElementById('minPrice').value   = '';
+    document.getElementById('maxPrice').value   = '';
+    document.getElementById('searchInput').value = '';
+    document.getElementById('sortSelect').value  = 'newest';
+    currentPage = 1;
+    fetchItems();
+}
+
+async function fetchItems() {
+    const container = document.getElementById('productContainer');
+    container.innerHTML = '<div style="text-align:center;padding:60px;color:#4A5568;"><span class="spinner"></span><p style="margin-top:12px;">Memuat item...</p></div>';
+
+    const params = new URLSearchParams({
+        page:      currentPage,
+        per_page:  12,
+        search:    document.getElementById('searchInput').value.trim(),
+        category:  document.querySelector('input[name="category"]:checked')?.value || '',
+        rarity:    document.querySelector('input[name="rarity"]:checked')?.value   || '',
+        sort:      document.getElementById('sortSelect').value,
+        min_price: document.getElementById('minPrice').value  || '',
+        max_price: document.getElementById('maxPrice').value  || '',
+    });
+
+    const { data } = await safeFetch(API.items + '?' + params);
+
+    if (!data.success) {
+        container.innerHTML = '<div class="empty-state"><div class="icon">⚠️</div><p>Gagal memuat data. Pastikan server PHP aktif.</p></div>';
+        return;
+    }
+
+    // Render kategori di sidebar (sekali)
+    if (data.categories && document.getElementById('categoryList').children.length === 0) {
+        renderCategories(data.categories);
+    }
+
+    document.getElementById('totalCount').textContent = `${data.meta.total} item`;
+    renderItems(data.data);
+    renderPagination(data.meta);
+}
+
+function renderCategories(cats) {
+    const list = document.getElementById('categoryList');
+    cats.forEach(cat => {
+        const label = document.createElement('label');
+        label.className = 'filter-item-row';
+        label.innerHTML = `<input type="radio" name="category" value="${cat.slug}" onchange="applyFilter()"> ${cat.icon || CAT_EMOJI[cat.slug] || '📂'} ${cat.name}`;
+        list.appendChild(label);
+    });
+}
+
 function renderItems(items) {
     const container = document.getElementById('productContainer');
-    container.innerHTML = ''; 
+    if (!items.length) {
+        container.innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><div class="icon">🔍</div><p>Tidak ada item yang cocok dengan filter ini.</p></div>';
+        return;
+    }
 
-    items.forEach(item => {
-        let badgeColor, borderColor;
-        switch(item.rarity) {
-            case 'legendary': badgeColor = '#FBBF24'; borderColor = '#92400E'; break;
-            case 'epic': badgeColor = '#C084FC'; borderColor = '#6B21A8'; break;
-            case 'rare': badgeColor = '#60A5FA'; borderColor = '#1E40AF'; break;
-            case 'uncommon': badgeColor = '#4ADE80'; borderColor = '#166534'; break;
-            default: badgeColor = '#94A3B8'; borderColor = '#475569';
-        }
+    container.innerHTML = items.map(item => {
+        const rarityColors = {
+            legendary: { badge: '#FBBF24', border: '#92400E' },
+            epic:      { badge: '#C084FC', border: '#6B21A8' },
+            rare:      { badge: '#60A5FA', border: '#1E40AF' },
+            uncommon:  { badge: '#4ADE80', border: '#166534' },
+            common:    { badge: '#94A3B8', border: '#475569' },
+        };
+        const rc = rarityColors[item.rarity] || rarityColors.common;
 
-        const priceFormatted = new Intl.NumberFormat('id-ID', { 
-            style: 'currency', currency: 'IDR', minimumFractionDigits: 0 
-        }).format(item.price);
-
-        const cardHTML = `
-            <div class="product-card ${item.rarity}">
-                <div class="card-visual-header">📦</div>
-                <div class="card-body">
-                    <div class="card-meta-row">
-                        <span class="mono-badge" style="color: ${badgeColor}; background: ${badgeColor}20; border-color: ${borderColor}; text-transform: uppercase;">
-                            ${item.rarity}
-                        </span>
-                        <span class="rating-stars" style="font-size: 11px;">★ ${item.avg_rating}</span>
-                    </div>
-                    <div class="card-title">${item.name}</div>
-                    <div class="card-author">by ${item.seller_name}</div>
-                    <div class="card-footer-action">
-                        <div class="card-price">${priceFormatted}</div>
-                        <button class="btn-primary" onclick="addToCart(${item.id})" style="font-size: 11px; padding: 5px 10px; border-radius: 6px;">+ Cart</button>
-                    </div>
+        return `
+        <div class="product-card ${item.rarity}" onclick="window.location.href='Home-ItemSelect.html?id=${item.id}'" style="cursor:pointer;">
+            <div class="card-visual-header">${RARITY_EMOJI[item.rarity] || '📦'}</div>
+            <div class="card-body">
+                <div class="card-meta-row">
+                    <span class="mono-badge" style="color:${rc.badge};background:${rc.badge}20;border-color:${rc.border};text-transform:uppercase;">
+                        ${item.rarity}
+                    </span>
+                    <span class="rating-stars" style="font-size:11px;">★ ${parseFloat(item.avg_rating).toFixed(1)}</span>
+                </div>
+                <div class="card-title">${item.name}</div>
+                <div class="card-author">by ${item.seller_name} · ${item.category_name}</div>
+                <div class="card-footer-action">
+                    <div class="card-price">${fRupiah(item.price)}</div>
+                    <button class="btn-primary" onclick="event.stopPropagation();addToCart(${item.id})" style="font-size:11px;padding:5px 10px;border-radius:6px;">+ Cart</button>
                 </div>
             </div>
-        `;
-        container.innerHTML += cardHTML;
-    });
+        </div>`;
+    }).join('');
 }
 
-// 4. Proteksi Tombol Tambah Keranjang (Hanya untuk Buyer yang sudah Login)
-function addToCart(itemId) {
-    // PROTEKSI 1: Cek apakah sudah login
-    if (!currentUser) {
-        alert("Akses Ditolak: Anda harus login terlebih dahulu!");
-        window.location.href = 'Signin.html';
+function renderPagination(meta) {
+    const pag = document.getElementById('pagination');
+    if (meta.last_page <= 1) { pag.innerHTML = ''; return; }
+
+    let html = `<button class="page-btn" onclick="goPage(${meta.page - 1})" ${meta.page <= 1 ? 'disabled' : ''}>← Prev</button>`;
+    for (let i = Math.max(1, meta.page - 2); i <= Math.min(meta.last_page, meta.page + 2); i++) {
+        html += `<button class="page-btn ${i === meta.page ? 'active' : ''}" onclick="goPage(${i})">${i}</button>`;
+    }
+    html += `<button class="page-btn" onclick="goPage(${meta.page + 1})" ${meta.page >= meta.last_page ? 'disabled' : ''}>Next →</button>`;
+    pag.innerHTML = html;
+}
+
+function goPage(p) {
+    currentPage = p;
+    fetchItems();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+async function addToCart(itemId) {
+    const user = await getUser();
+    if (!user) {
+        toast('Silakan login terlebih dahulu.', 'error');
+        setTimeout(() => window.location.href = 'Signin.html', 800);
+        return;
+    }
+    if (user.role !== 'buyer') {
+        toast('Hanya akun Buyer yang bisa menambah ke cart.', 'error');
         return;
     }
 
-    // PROTEKSI 2: Cek apakah rolenya adalah buyer
-    if (currentUser.role !== 'buyer') {
-        alert("Akses Ditolak: Hanya akun dengan Role BUYER yang dapat menambah barang ke keranjang!");
-        return;
+    const fd = new FormData();
+    fd.append('item_id',  itemId);
+    fd.append('quantity', 1);
+
+    const { data } = await safeFetch(API.cartAdd, { method: 'POST', body: fd });
+
+    if (data.success) {
+        toast('Item berhasil ditambahkan ke keranjang! 🛒');
+        // Update cart badge
+        if (_cachedUser) { _cachedUser.cart_count = data.cart_count; }
+        renderNavbar();
+    } else {
+        toast(data.message || 'Gagal menambahkan ke cart.', 'error');
     }
-
-    // Jika lolos kedua proteksi, jalankan proses penambahan ke keranjang di database
-    const formData = new FormData();
-    formData.append('item_id', itemId);
-    formData.append('quantity', 1);
-
-    fetch('http://localhost/Praktikum_PBO/Project-Responsi-Prak-Pemweb/Backend/buyer/cart/add.php', { 
-        method: 'POST', 
-        body: formData 
-    })
-    .then(res => res.json())
-    .then(data => {
-        if(data.success) {
-            alert("Berhasil dimasukkan ke keranjang belanja!");
-            checkUserStatus(); // Refresh data navbar jika diperlukan
-        } else {
-            alert("Gagal: " + data.message);
-        }
-    });
-}
-
-// Fungsi pembantu untuk logout
-function logout() {
-    fetch('http://localhost/Praktikum_PBO/Project-Responsi-Prak-Pemweb/Backend/auth/logout.php')
-    .then(() => {
-        alert("Berhasil keluar akun.");
-        window.location.reload();
-    });
 }
 </script>
 </body>

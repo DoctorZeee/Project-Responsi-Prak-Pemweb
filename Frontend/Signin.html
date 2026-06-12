@@ -10,82 +10,107 @@
 
 <div class="auth-container">
     <div class="auth-banner">
-        <div style="font-family: 'Press Start 2P'; font-size: 18px;">
-            <span style="color: var(--color-primary);">⚔ Craft</span><span style="color: var(--color-text-rare);">Bazaar</span>
+        <div style="font-family:'Press Start 2P';font-size:18px;text-align:center;">
+            <span style="color:var(--color-primary);">⚔ Craft</span><span style="color:var(--color-text-rare);">Bazaar</span>
         </div>
-        <p style="color: var(--color-text-muted); font-size: 13px; margin-top: 8px;">Minecraft Item & Skin Marketplace</p>
+        <p style="color:var(--color-text-muted);font-size:13px;margin-top:12px;text-align:center;">
+            Minecraft Item &amp; Skin Marketplace
+        </p>
+        <div style="margin-top:32px;display:flex;flex-direction:column;gap:14px;max-width:280px;">
+            <div style="background:rgba(74,222,128,0.06);border:1px solid rgba(74,222,128,0.15);border-radius:10px;padding:14px 16px;">
+                <div style="font-size:22px;margin-bottom:6px;">⚔️</div>
+                <div style="color:#F0F4FF;font-size:13px;font-weight:700;">Jual Item Minecraft</div>
+                <div style="color:#4A5568;font-size:11px;margin-top:2px;">Skin, weapon, resource pack & lebih</div>
+            </div>
+            <div style="background:rgba(96,165,250,0.06);border:1px solid rgba(96,165,250,0.15);border-radius:10px;padding:14px 16px;">
+                <div style="font-size:22px;margin-bottom:6px;">💎</div>
+                <div style="color:#F0F4FF;font-size:13px;font-weight:700;">Koleksi Item Langka</div>
+                <div style="color:#4A5568;font-size:11px;margin-top:2px;">Dari Common hingga Legendary</div>
+            </div>
+        </div>
     </div>
 
     <div class="auth-form-side">
         <div class="auth-header">
             <h1>Masuk Akun</h1>
-            <p>Belum punya akun? <span onclick="window.location.href='Regist.html'" style="cursor: pointer; color: var(--color-primary);">Daftar di sini →</span></p>
-            <p style="margin-top: 10px; font-size: 12px;">
-                Atau <span onclick="window.location.href='Marketplace-main.html'" style="cursor: pointer; color: var(--color-text-rare); text-decoration: underline;">Lihat Marketplace tanpa login</span>
+            <p>Belum punya akun? <span onclick="window.location.href='Regist.html'" style="cursor:pointer;color:var(--color-primary);">Daftar di sini →</span></p>
+            <p style="margin-top:6px;font-size:12px;">
+                Atau <span onclick="window.location.href='Marketplace-main.html'" style="cursor:pointer;color:var(--color-text-rare);text-decoration:underline;">lihat marketplace tanpa login</span>
             </p>
         </div>
 
-        <form id="loginForm">
-            <div class="form-group">
-                <label class="form-label">Username / Email</label>
-                <div class="input-wrapper">
-                    <input type="text" name="identifier" placeholder="Masukkan nama atau email anda" required>
-                </div>
-            </div>
+        <div id="alertBox" style="display:none;background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.3);border-radius:8px;padding:10px 14px;font-size:13px;color:#F87171;margin-bottom:14px;"></div>
 
-            <div class="form-group">
-                <label class="form-label">Password</label>
-                <div class="input-wrapper">
-                    <input type="password" name="password" placeholder="••••••••" required>
-                </div>
+        <div class="form-group">
+            <label class="form-label">Username / Email</label>
+            <div class="input-wrapper">
+                <input type="text" id="identifier" placeholder="Masukkan username atau email" required>
             </div>
+        </div>
 
-            <button type="submit" class="btn-submit">🚀 Masuk </button>
-        </form>
+        <div class="form-group">
+            <label class="form-label">Password</label>
+            <div class="input-wrapper">
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+        </div>
+
+        <button class="btn-submit" id="btnLogin" onclick="doLogin()">🚀 Masuk</button>
+
+        <div style="margin-top:20px;padding:12px 16px;background:rgba(74,222,128,0.04);border:1px solid rgba(74,222,128,0.1);border-radius:8px;font-size:11px;color:#4A5568;">
+            <strong style="color:#8892B0;">Demo Akun (password: password)</strong><br>
+            admin@craftbazaar.com · steve@craftbazaar.com · notch@craftbazaar.com
+        </div>
     </div>
 </div>
 
+<script src="assets/app.js"></script>
 <script>
-document.getElementById('loginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const formData = new FormData(this);
+// Jika sudah login, redirect langsung
+(async () => {
+    const user = await getUser();
+    if (user) window.location.href = (user.role === 'buyer') ? 'Marketplace-main.html' : 'admin-home.html';
+})();
 
-    fetch('../Backend/auth/login.php', { 
-        method: 'POST', 
-        body: formData 
-    })
-    .then(async res => {
-        // Ambil data dari server sebagai teks mentah dulu (jangan langsung di-JSON-kan)
-        const text = await res.text();
-        
-        try {
-            // Coba terjemahkan ke JSON
-            const data = JSON.parse(text);
-            return { ok: res.ok, data: data };
-        } catch (err) {
-            // JIKA GAGAL: Jangan tampilkan error JSON ke user! 
-            // Kita print error aslinya di console untuk developer, dan tampilkan alert ramah ke user
-            console.error("Pesan Error Asli dari PHP:\n", text);
-            throw new Error("Terjadi gangguan pada server. Silakan coba lagi nanti.");
-        }
-    })
-    .then(result => {
-        const data = result.data;
-        if (result.ok && data.success) { 
-            alert(data.message);
-            // Arahkan sesuai role
-            if (data.role === 'seller' || data.role === 'admin') {
-                window.location.href = 'admin-home.html';
-            } else {
-                window.location.href = 'Marketplace-main.html';
-            }
-        } else { 
-            alert("Gagal Masuk: " + (data.message || "Username/Password salah.")); 
-        }
-    })
-    .catch(error => {
-        alert(error.message); // Tampilkan alert "Terjadi gangguan pada server"
-    });
+async function doLogin() {
+    const identifier = document.getElementById('identifier').value.trim();
+    const password   = document.getElementById('password').value;
+    const alertBox   = document.getElementById('alertBox');
+    const btn        = document.getElementById('btnLogin');
+
+    alertBox.style.display = 'none';
+
+    if (!identifier || !password) {
+        alertBox.textContent = 'Username/email dan password wajib diisi.';
+        alertBox.style.display = 'block';
+        return;
+    }
+
+    btn.disabled     = true;
+    btn.innerHTML    = '<span class="spinner"></span> Memproses...';
+
+    const fd = new FormData();
+    fd.append('identifier', identifier);
+    fd.append('password',   password);
+
+    const { ok, data } = await safeFetch(API.login, { method: 'POST', body: fd });
+
+    btn.disabled  = false;
+    btn.innerHTML = '🚀 Masuk';
+
+    if (ok && data.success) {
+        _cachedUser = null;
+        toast('Login berhasil! Mengalihkan...');
+        setTimeout(() => window.location.href = data.redirect, 700);
+    } else {
+        alertBox.textContent = data.message || 'Login gagal.';
+        alertBox.style.display = 'block';
+    }
+}
+
+// Enter key support
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') doLogin();
 });
 </script>
 </body>

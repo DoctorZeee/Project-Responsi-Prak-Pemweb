@@ -1,26 +1,25 @@
 <?php
 // ============================================================
-// CraftBazaar — Public: Marketplace Item List
-// GET /api/items.php
-// Tidak butuh login — data untuk halaman marketplace
+// CraftBazaar — Public API: Marketplace Item List
+// GET /Backend/api/items.php
 // ============================================================
-
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../includes/helpers.php';
 
+header('Content-Type: application/json');
+
 $db = getDB();
 
-$perPage  = (int) ($_GET['per_page'] ?? 12);
-$perPage  = min(max($perPage, 1), 50);
+$perPage  = min(max((int)($_GET['per_page'] ?? 12), 1), 50);
 $page     = max(1, (int)($_GET['page'] ?? 1));
 $offset   = ($page - 1) * $perPage;
 
 $search   = sanitize($_GET['search']   ?? '');
-$catId    = (int)   ($_GET['category'] ?? 0);
+$catSlug  = sanitize($_GET['category'] ?? '');
 $rarity   = sanitize($_GET['rarity']   ?? '');
 $sort     = sanitize($_GET['sort']     ?? 'newest');
-$minPrice = (float) ($_GET['min_price'] ?? 0);
-$maxPrice = (float) ($_GET['max_price'] ?? 0);
+$minPrice = (float)($_GET['min_price'] ?? 0);
+$maxPrice = (float)($_GET['max_price'] ?? 0);
 
 $where  = ['i.is_approved = 1', 'i.is_active = 1', 'i.stock > 0'];
 $params = [];
@@ -30,41 +29,34 @@ if ($search) {
     $params[] = "%$search%";
     $params[] = "%$search%";
 }
-if ($catId) {
-    $where[]  = 'i.category_id = ?';
-    $params[] = $catId;
+if ($catSlug) {
+    $where[]  = 'c.slug = ?';
+    $params[] = $catSlug;
 }
 if (in_array($rarity, ['common','uncommon','rare','epic','legendary'])) {
     $where[]  = 'i.rarity = ?';
     $params[] = $rarity;
 }
-if ($minPrice > 0) {
-    $where[]  = 'i.price >= ?';
-    $params[] = $minPrice;
-}
-if ($maxPrice > 0) {
-    $where[]  = 'i.price <= ?';
-    $params[] = $maxPrice;
-}
+if ($minPrice > 0) { $where[] = 'i.price >= ?'; $params[] = $minPrice; }
+if ($maxPrice > 0) { $where[] = 'i.price <= ?'; $params[] = $maxPrice; }
 
 $whereSQL = 'WHERE ' . implode(' AND ', $where);
-
 $orderSQL = match($sort) {
-    'price_asc'   => 'i.price ASC',
-    'price_desc'  => 'i.price DESC',
-    'popular'     => 'i.total_sold DESC',
-    'rating'      => 'i.avg_rating DESC',
-    default       => 'i.created_at DESC',
+    'price_asc'  => 'i.price ASC',
+    'price_desc' => 'i.price DESC',
+    'popular'    => 'i.total_sold DESC',
+    'rating'     => 'i.avg_rating DESC',
+    default      => 'i.created_at DESC',
 };
 
-$countStmt = $db->prepare("SELECT COUNT(*) FROM items i $whereSQL");
+$countStmt = $db->prepare("SELECT COUNT(*) FROM items i JOIN categories c ON c.id = i.category_id $whereSQL");
 $countStmt->execute($params);
-$total    = (int) $countStmt->fetchColumn();
-$lastPage = (int) ceil($total / $perPage);
+$total    = (int)$countStmt->fetchColumn();
+$lastPage = max(1, (int)ceil($total / $perPage));
 
 $itemStmt = $db->prepare("
     SELECT i.id, i.name, i.slug, i.price, i.rarity,
-           i.image, i.avg_rating, i.total_sold,
+           i.image, i.avg_rating, i.total_sold, i.stock,
            c.name AS category_name, c.slug AS category_slug,
            u.username AS seller_name
     FROM items i
@@ -76,14 +68,12 @@ $itemStmt = $db->prepare("
 ");
 $itemStmt->execute($params);
 
-header('Content-Type: application/json');
+// Ambil semua kategori untuk filter
+$cats = $db->query('SELECT id, name, slug, icon FROM categories ORDER BY name')->fetchAll();
+
 echo json_encode([
-    'success' => true,
-    'data'    => $itemStmt->fetchAll(),
-    'meta'    => [
-        'total'     => $total,
-        'per_page'  => $perPage,
-        'page'      => $page,
-        'last_page' => $lastPage,
-    ],
+    'success'    => true,
+    'data'       => $itemStmt->fetchAll(),
+    'categories' => $cats,
+    'meta'       => ['total' => $total, 'per_page' => $perPage, 'page' => $page, 'last_page' => $lastPage],
 ]);

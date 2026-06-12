@@ -1,12 +1,11 @@
 <?php
 // ============================================================
 // CraftBazaar — Logout Handler
-// GET /auth/logout.php
+// GET /Backend/auth/logout.php
 // ============================================================
-
 require_once __DIR__ . '/../includes/auth_helper.php';
 
+header('Content-Type: application/json');
 destroySession();
 
-header('Location: /auth/login.php');
-exit;
+echo json_encode(['success' => true, 'message' => 'Berhasil keluar.']);
