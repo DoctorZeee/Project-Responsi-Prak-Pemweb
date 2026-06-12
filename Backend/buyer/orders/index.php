@@ -8,7 +8,7 @@ require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../../includes/auth_helper.php';
 require_once __DIR__ . '/../../includes/helpers.php';
 
-requireRole('/auth/login.php', 'buyer');
+requireRoleApi('buyer');
 
 $db     = getDB();
 $userId = currentUser()['id'];

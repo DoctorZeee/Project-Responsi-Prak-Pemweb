@@ -172,21 +172,16 @@
     </div>
 </div>
 
+<script src="assets/app.js"></script>
 <script>
-    function openModal(modalId, name = '', price = 0, stock = 0) {
-        document.getElementById(modalId).style.display = 'flex';
-        
-        if (modalId === 'editModal') {
-            document.getElementById('editItemName').value = name;
-            document.getElementById('editItemPrice').value = price;
-            document.getElementById('editItemStock').value = stock;
+    document.addEventListener("DOMContentLoaded", async function () {
+        // Melindungi halaman agar hanya bisa diakses seller atau admin
+        const user = await requireAuth(['seller', 'admin']);
+        if (user) {
+            renderNavbar();
+            // Data produk statis saat ini, bisa diintegrasikan dengan API ke depannya
         }
-    }
-
-    function closeModal(modalId) {
-        document.getElementById(modalId).style.display = 'none';
-    }
+    });
 </script>
-
 </body>
 </html>

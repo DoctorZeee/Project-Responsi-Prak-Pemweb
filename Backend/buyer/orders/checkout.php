@@ -2,7 +2,7 @@
 // ============================================================
 // CraftBazaar — Order: Checkout
 // POST /Backend/buyer/orders/checkout.php
-// FIX: tambah kolom payment_proof ke INSERT
+// FIX: Keamanan upload file ditingkatkan (MIME checking)
 // ============================================================
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../../includes/auth_helper.php';
@@ -17,7 +17,7 @@ $db     = getDB();
 $userId = currentUser()['id'];
 $note   = sanitize($_POST['note'] ?? '');
 
-// Validasi file upload (opsional)
+// Validasi file upload
 $fileName   = null;
 $uploadDir  = __DIR__ . '/../../uploads/payments/';
 
@@ -27,12 +27,24 @@ if (!empty($_FILES['payment_proof']['name'])) {
     }
     if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
 
-    $ext       = strtolower(pathinfo($_FILES['payment_proof']['name'], PATHINFO_EXTENSION));
-    if (!in_array($ext, ['jpg','jpeg','png'])) jsonResponse(false, 'Format bukti hanya JPG/PNG.', [], 400);
+    // 1. Cek MIME Type yang sebenarnya (Mencegah upload file shell.php.jpg)
+    $tmpName = $_FILES['payment_proof']['tmp_name'];
+    $allowedMimes = ['image/jpeg', 'image/png'];
+    $mime = mime_content_type($tmpName);
+
+    if (!in_array($mime, $allowedMimes)) {
+        jsonResponse(false, 'File harus berupa gambar JPG/PNG yang valid.', [], 400);
+    }
+
+    // 2. Cek Ekstensi File
+    $ext = strtolower(pathinfo($_FILES['payment_proof']['name'], PATHINFO_EXTENSION));
+    if (!in_array($ext, ['jpg','jpeg','png'])) {
+        jsonResponse(false, 'Format bukti hanya JPG/PNG.', [], 400);
+    }
 
     $fileName      = time() . '_' . uniqid() . '.' . $ext;
     $targetPath    = $uploadDir . $fileName;
-    if (!move_uploaded_file($_FILES['payment_proof']['tmp_name'], $targetPath)) {
+    if (!move_uploaded_file($tmpName, $targetPath)) {
         jsonResponse(false, 'Gagal menyimpan bukti transfer.', [], 500);
     }
 }
