@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CraftBazaar - Statistik Penjualan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="main-navbar">
+    <div class="nav-logo" onclick="window.location.href='admin-home.html'" style="cursor: pointer;">
+        <span>⚔ Craft</span><span style="color: var(--color-text-rare);">Bazaar</span>
+        <span class="mono-badge" style="color: #60A5FA; background: rgba(96, 165, 250, 0.08); border-color: #1E40AF; font-size: 10px; margin-left: 8px;">SELLER PANEL</span>
+    </div>
+    <div class="nav-user-zone">
+        <div class="mono-badge" style="color: #FBBF24; background: rgba(251, 191, 36, 0.08); border-color: rgba(251, 191, 36, 0.2);">
+            💰 Pendapatan: Rp 2.450.000
+        </div>
+        <div class="nav-avatar-circle" style="outline: 2px #60A5FA solid;">👨‍💻</div>
+    </div>
+</nav>
+
+<div class="seller-layout-container">
+    <aside class="seller-sidebar">
+        <div class="seller-profile-section">
+            <div class="seller-avatar-large">👨‍💻</div>
+            <h2 class="seller-name">steve_builder</h2>
+            <p class="seller-role">🛡️ Verified Seller</p>
+        </div>
+        
+        <div class="seller-divider"></div>
+        
+        <ul class="seller-menu-list">
+            <li>
+                <a href="admin-home.html" class="seller-menu-item">
+                    <span>📊</span> Dashboard & Produk
+                </a>
+            </li>
+            <li>
+                <a href="seller-orders.html" class="seller-menu-item">
+                    <span>📥</span> Order Masuk
+                </a>
+            </li>
+            <li>
+                <a href="seller-analytics.html" class="seller-menu-item active">
+                    <span>📈</span> Statistik Penjualan
+                </a>
+            </li>
+            <li>
+                <a href="seller-settings.html" class="seller-menu-item">
+                    <span>⚙️</span> Pengaturan Toko
+                </a>
+            </li>
+        </ul>
+
+        <div class="seller-divider"></div>
+        
+        <a href="Home-Profile.html" class="btn-logout-seller" style="text-align: center; text-decoration: none; display: block;">
+            🚪 Keluar ke Mode Buyer
+        </a>
+    </aside>
+
+    <main class="seller-main-content">
+        <div class="seller-content-header">
+            <h3>📈 Statistik Penjualan</h3>
+            <p>Pantau grafik pendapatan dan produk terlaris Anda bulan ini.</p>
+        </div>
+
+        <div class="seller-item-card" style="margin-top: 20px; padding: 40px; text-align: center;">
+            <h4 style="color: #60A5FA; font-size: 48px; margin-bottom: 10px;">📊</h4>
+            <h5 style="color: #F0F4FF; font-size: 18px;">Grafik sedang disiapkan...</h5>
+            <p style="color: #94A3B8; font-size: 14px; margin-top: 8px;">Fitur Chart.js akan diintegrasikan dengan API pada update berikutnya.</p>
+        </div>
+        
+        <h4 style="color: #F0F4FF; font-size: 15px; font-weight: 700; margin-top: 24px; margin-bottom: 16px;">Produk Terlaris</h4>
+        <div class="seller-product-list">
+            <div class="seller-item-card" style="display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 16px;">
+                    <span style="font-size: 24px;">🥇</span>
+                    <div>
+                        <h5 style="color: #F0F4FF; font-size: 15px;">Diamond Sword +5 Sharpness</h5>
+                        <p style="color: #94A3B8; font-size: 13px;">14x Terjual bulan ini</p>
+                    </div>
+                </div>
+                <span class="badge-status stock-ok">+ Rp 1.750.000</span>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="assets/app.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", async function () {
+        const user = await requireAuth(['seller', 'admin']);
+        if (user) renderNavbar();
+    });
+</script>
+</body>
+</html>
